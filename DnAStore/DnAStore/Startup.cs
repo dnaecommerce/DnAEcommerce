@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DnAStore.Models;
 using DnAStore.Data;
+using DnAStore.Models.Interfaces;
+using DnAStore.Models.Services;
 
 namespace DnAStore
 {
@@ -37,11 +39,13 @@ namespace DnAStore
 			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConnection"];
 
 			services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
-			services.AddDbContext<DnAProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
+			services.AddDbContext<ProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
+
+            services.AddScoped<IInventoryManager, InventoryService>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
