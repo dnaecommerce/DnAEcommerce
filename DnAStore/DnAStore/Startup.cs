@@ -36,11 +36,11 @@ namespace DnAStore
 			var connectionString_ProductsDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConfiguration"];
 			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConnection"];
 
-			services.AddDbContext<DnAUserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
+			services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
 			services.AddDbContext<DnAProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
 			services.AddIdentity<User, IdentityRole>()
-				.AddEntityFrameworkStores<DnAUserDBContext>()
+				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
 		}
 
