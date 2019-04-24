@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using DnAStore.Models;
+using DnAStore.Data;
 
 namespace DnAStore
 {
@@ -35,11 +36,11 @@ namespace DnAStore
 			var connectionString_ProductsDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConfiguration"];
 			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConnection"];
 
-			services.AddDbContext<DnAUserDbContext>(options => options.UseSqlServer(connectionString_UserDB));
-			services.AddDbContext<DnAProductDbContext>(options => options.UseSqlServer(connectionString_ProductsDB));
+			services.AddDbContext<DnAUserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
+			services.AddDbContext<DnAProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
 			services.AddIdentity<DnAUser, IdentityRole>()
-				.AddEntityFrameworkStores<DnAUserDbContext>()
+				.AddEntityFrameworkStores<DnAUserDBContext>()
 				.AddDefaultTokenProviders();
 		}
 
