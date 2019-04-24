@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DnAStore.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace DnAStore.Data
 {
-    public class DnAProductDBContext : DbContext
+    public class ProductDBContext : DbContext
     {
 
-        public DnAProductDBContext(DbContextOptions<DnAProductDBContext> options) : base(options)
+        public ProductDBContext(DbContextOptions<ProductDBContext> options) : base(options)
         {
 
         }
@@ -20,7 +21,7 @@ namespace DnAStore.Data
         }
 
         // Database Tables
-
+        public DbSet<Product> Products;
 
     }
 }
