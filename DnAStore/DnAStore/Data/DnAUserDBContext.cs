@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DnAStore.Data
 {
-    public class DnAUserDBContext : IdentityDbContext<DnAUser>
+    public class DnAUserDBContext : IdentityDbContext<User>
     {
 
         public DnAUserDBContext(DbContextOptions<DnAUserDBContext> options) : base(options)

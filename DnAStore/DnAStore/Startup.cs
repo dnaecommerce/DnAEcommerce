@@ -39,7 +39,7 @@ namespace DnAStore
 			services.AddDbContext<DnAUserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
 			services.AddDbContext<DnAProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
-			services.AddIdentity<DnAUser, IdentityRole>()
+			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<DnAUserDBContext>()
 				.AddDefaultTokenProviders();
 		}
