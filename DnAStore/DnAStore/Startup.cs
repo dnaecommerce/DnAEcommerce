@@ -35,8 +35,9 @@ namespace DnAStore
         {
             services.AddMvc();
 
-			var connectionString_ProductsDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConfiguration"];
-			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:ProductionConnection"] : Configuration["ConnectionStrings:ProductionConnection"];
+			var connectionString_ProductsDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:DefaultConnection_Users"] : Configuration["ConnectionStrings:ProductionConnection_Users"];
+
+			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:DefaultConnection_Products"] : Configuration["ConnectionStrings:ProductionConnection_Products"];
 
 			services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
 			services.AddDbContext<ProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
