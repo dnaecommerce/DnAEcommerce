@@ -55,7 +55,7 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-					// Redirect to home page
+					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
 			}
