@@ -1,6 +1,6 @@
-﻿
-
-
+﻿@using Microsoft.AspNetCore.Identity
+@using DnAStore.Models
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 
@@ -9,6 +9,16 @@
     <title></title>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <span>Welcome @User.Claims.First(c => c.Type == "FullName").Value!</span>
+    }
+    else
+    {
+        <span>Welcome, stranger!</span>
+        
+        // Give user a login/register link
+        <a href="Account/Register">Register</a>
+    }
 </body>
 </html>
