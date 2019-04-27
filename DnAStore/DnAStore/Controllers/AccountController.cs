@@ -78,7 +78,7 @@ namespace DnAStore.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return Views();
+            return View();
         }
 
         /// <summary>
@@ -89,20 +89,16 @@ namespace DnAStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel lvm)
         {
-            if (ModelState.isValid)
+            if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password);
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-                    return Views(lvm);
-                }
             }
-
+            ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            return View(lvm);
         }
 	}
 }
