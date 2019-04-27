@@ -21,12 +21,21 @@ namespace DnAStore.Controllers
 			_signInManager = signInManager;
 		}
 
+        /// <summary>
+        /// Register Route
+        /// </summary>
+        /// <returns>Register View</returns>
 		[HttpGet]
 		public IActionResult Register()
 		{
 			return View();
 		}
 
+        /// <summary>
+        /// Register Post Route
+        /// </summary>
+        /// <param name="rvm">User Information Model</param>
+        /// <returns>Redirect To Home on Success or Register on Failure</returns>
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel rvm)
 		{
@@ -61,5 +70,39 @@ namespace DnAStore.Controllers
 			}
 			return View(rvm);
 		}
+
+        /// <summary>
+        /// Login Route
+        /// </summary>
+        /// <returns>Login View</returns>
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return Views();
+        }
+
+        /// <summary>
+        /// Login Post Route
+        /// </summary>
+        /// <param name="lvm">User Information Model</param>
+        /// <returns>Redirect to Home on Success or Login on Failure.</returns>
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel lvm)
+        {
+            if (ModelState.isValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    return Views(lvm);
+                }
+            }
+
+        }
 	}
 }
