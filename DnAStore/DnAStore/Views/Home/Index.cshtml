@@ -2,12 +2,14 @@
 @using DnAStore.Models
 @inject SignInManager<User> SignInManager
 
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
 <body>
     @if (SignInManager.IsSignedIn(User))
     {
@@ -17,9 +19,6 @@
     {
         <span>Welcome, stranger!</span>
         
-        // Give user a login/register link
-        <a href="Account/Register">Register</a>
-        <a href="Account/Login">Login</a>
     }
 </body>
 </html>

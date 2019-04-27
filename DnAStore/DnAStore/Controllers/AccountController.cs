@@ -100,5 +100,16 @@ namespace DnAStore.Controllers
             ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             return View(lvm);
         }
+
+        /// <summary>
+        /// Signs the user out.
+        /// </summary>
+        /// <returns>Redirect to Home</returns>
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
 	}
 }
