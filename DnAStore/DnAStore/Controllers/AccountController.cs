@@ -41,12 +41,13 @@ namespace DnAStore.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				User user = new User
-				{
-					UserName = rvm.Email,
-					Email = rvm.Email,
-					FirstName = rvm.FirstName,
-					LastName = rvm.LastName,
+                User user = new User
+                {
+                    UserName = rvm.Email,
+                    Email = rvm.Email,
+                    FirstName = rvm.FirstName,
+                    LastName = rvm.LastName,
+                    SpaceTravelCertified = rvm.SpaceTravelCertified,
 				};
 
 				var result = await _userManager.CreateAsync(user, rvm.Password);
@@ -58,6 +59,8 @@ namespace DnAStore.Controllers
 					Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
 
 					List<Claim> claims = new List<Claim> { nameClaim, emailClaim };
+
+                    Claim spaceTravelClaim = new Claim("SpaceTravelCertified", user.SpaceTravelCertified.ToString());
 
 					await _userManager.AddClaimsAsync(user, claims);
 
