@@ -1,12 +1,19 @@
-﻿@{
+﻿@model DnAStore.Models.ViewModels.RolesViewModel
+
+@{
     ViewData["Title"] = "Roles";
     Layout = "_Layout";
 }
 
 <h1>Roles</h1>
 
-You have accessed the Roles page!!
+<span>You have accessed the Roles page!!</span>
 
 @* TODO Display all users with admin role on the page *@
 
-@* TODO Add buttons for adding and removing admins *@
+<form method="post">
+
+    @* TODO Add buttons for adding and removing admins *@
+
+    <button type="submit">Add to Admins</button>
+</form>

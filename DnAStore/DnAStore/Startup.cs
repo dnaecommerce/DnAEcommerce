@@ -14,6 +14,7 @@ using DnAStore.Data;
 using DnAStore.Models.Interfaces;
 using DnAStore.Models.Services;
 using DnAStore.Models.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore
 {
@@ -49,12 +50,13 @@ namespace DnAStore
 				.AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
-           {
+			{
                options.AddPolicy("SpaceTravelCertified", policy => policy.Requirements.Add(new SpaceTravelCertificationRequirement(true)));
 			   options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-           });
+			});
 
             services.AddScoped<IInventoryManager, InventoryService>();
+			services.AddScoped<IAuthorizationHandler, AdminRoleHandler>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

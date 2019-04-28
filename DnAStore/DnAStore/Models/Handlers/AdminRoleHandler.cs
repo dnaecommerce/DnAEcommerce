@@ -10,7 +10,12 @@ namespace DnAStore.Models.Handlers
 	{
 		protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AdminRoleRequirement requirement)
 		{
-			throw new NotImplementedException();
+			if (context.User.IsInRole("Admin"))
+			{
+				context.Succeed(requirement);
+			}
+
+			return Task.CompletedTask;
 		}
 	}
 }
