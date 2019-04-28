@@ -58,9 +58,11 @@ namespace DnAStore.Controllers
 
 					Claim emailClaim = new Claim(ClaimTypes.Email, user.Email, ClaimValueTypes.Email);
 
-					List<Claim> claims = new List<Claim> { nameClaim, emailClaim };
+					Claim spaceTravelClaim = new Claim("SpaceTravelCertified", user.SpaceTravelCertified.ToString());
 
-                    Claim spaceTravelClaim = new Claim("SpaceTravelCertified", user.SpaceTravelCertified.ToString());
+					Claim adminRoleClaim = new Claim("AdminRole", user.Email);
+
+					List<Claim> claims = new List<Claim> { nameClaim, emailClaim, spaceTravelClaim, adminRoleClaim };
 
 					await _userManager.AddClaimsAsync(user, claims);
 
