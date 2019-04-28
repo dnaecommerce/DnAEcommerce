@@ -44,12 +44,14 @@ namespace DnAStore
 			services.AddDbContext<ProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
 			services.AddIdentity<User, IdentityRole>()
+				.AddRoles<IdentityRole>() // Actually need this, given the AddIdentity line above ?
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
 
             services.AddAuthorization(options =>
            {
                options.AddPolicy("SpaceTravelCertified", policy => policy.Requirements.Add(new SpaceTravelCertificationRequirement(true)));
+			   options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
            });
 
             services.AddScoped<IInventoryManager, InventoryService>();
