@@ -16,6 +16,10 @@ namespace DnAStore.Models.ViewModels
 		[Display(Name = "Last Name")]
 		public string LastName { get; set; }
 
+        [Required]
+        [Display(Name = "Space Travel Certified")]
+        public bool SpaceTravelCertified { get; set; }
+
 		[Required]
 		[EmailAddress]
 		public string Email { get; set; }

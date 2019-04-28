@@ -13,6 +13,7 @@ using DnAStore.Models;
 using DnAStore.Data;
 using DnAStore.Models.Interfaces;
 using DnAStore.Models.Services;
+using DnAStore.Models.Handlers;
 
 namespace DnAStore
 {
@@ -45,6 +46,11 @@ namespace DnAStore
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
+
+            services.AddAuthorization(options =>
+           {
+               options.AddPolicy("SpaceTravelCertified", policy => policy.Requirements.Add(new SpaceTravelCertificationRequirement(true)));
+           });
 
             services.AddScoped<IInventoryManager, InventoryService>();
 		}
