@@ -5,19 +5,20 @@
     Layout = "_Layout";
 }
 
-<h1>Login</h1>
-
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password" class="text-danger"></span>
-
-    <button type="submit">Login</button>
+    <div class="input-block-container-button">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <button type="submit">Login</button>
+    </div>
 </form>
 

@@ -5,34 +5,43 @@
     Layout = "_Layout";
 }
 
-<h1>Register</h1>
-
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
 
-    <label asp-for="FirstName"></label>
-    <input asp-for="FirstName" />
-    <span asp-validation-for="FirstName" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
 
-    <label asp-for="LastName"></label>
-    <input asp-for="LastName" />
-    <span asp-validation-for="LastName" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
 
-    <label asp-for="ConfirmPassword"></label>
-    <input asp-for="ConfirmPassword" />
-    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    <div class="input-block-container">
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
 
-    <label asp-for="SpaceTravelCertified"></label>
-    <input asp-for="SpaceTravelCertified" />
-    <span asp-validation-for="SpaceTravelCertified" class="text-danger"></span>
-
-    <button type="submit">Create User</button>
+    <div class="input-block-container-button">
+        <label asp-for="SpaceTravelCertified"></label>
+        <input asp-for="SpaceTravelCertified" />
+        <span asp-validation-for="SpaceTravelCertified" class="text-danger"></span>
+        <button type="submit">Register</button>
+    </div>
 </form>
