@@ -10,10 +10,7 @@ namespace DnAStore.Models.Handlers
 	{
 		protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AdminRoleRequirement requirement)
 		{
-			if (!context.User.HasClaim(c => c.)
-			{
-
-			}
+			throw new NotImplementedException();
 		}
 	}
 }
