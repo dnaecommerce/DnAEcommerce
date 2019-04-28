@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnAStore", "DnAStore\DnAStore.csproj", "{DF732EAC-12FB-4CE4-A12B-92A686E0134A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest_DnAStore", "XUnitTest_DnAStore\XUnitTest_DnAStore.csproj", "{38F3463F-A66E-4B4D-A389-CC858ED9E8AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest_DnAStore", "XUnitTest_DnAStore\XUnitTest_DnAStore.csproj", "{38F3463F-A66E-4B4D-A389-CC858ED9E8AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

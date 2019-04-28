@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DnAStore.Models
+@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            @if (ViewData["Title"] != null && (string)ViewData["Title"] == "Register")
+            {
+                <a href="/Account/Login">Login</a>
+            }
+            else if (ViewData["Title"] != null && (string)ViewData["Title"] == "Login")
+            {
+                <a href="/Account/Register">Register</a>
+            }
+            else
+            {
+                <a href="/Account/Register">Register</a>
+                <a href="/Account/Login">Login</a>
+            }
+        }
+        else
+        {
+            <a href="/Account/Logout">Logout</a>
+        }
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
