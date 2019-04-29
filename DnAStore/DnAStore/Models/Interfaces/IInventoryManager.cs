@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DnAStore.Models.Interfaces
 {
-    interface IInventoryManager
+    public interface IInventoryManager
     {
         Task CreateProduct(Product product);
         Task<Product> GetProductByID(int id);

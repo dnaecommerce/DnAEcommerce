@@ -3,18 +3,20 @@ using DnAStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DnAStore.Migrations.ProductDB
+namespace DnAStore.Migrations
 {
     [DbContext(typeof(ProductDBContext))]
-    partial class ProductDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190429172137_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -36,7 +38,7 @@ namespace DnAStore.Migrations.ProductDB
 
                     b.HasKey("ID");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
 
                     b.HasData(
                         new
@@ -70,7 +72,7 @@ namespace DnAStore.Migrations.ProductDB
                         {
                             ID = 4,
                             Description = "Due to its spectacular high reflectance rays Aristarchus crater has been a popular landform since telescopes were first pointed towards the Moon. During the Apollo era of exploration much was learned of the wide variety of landforms in this area and it was proposed for a landing site, but the Apollo program was cancelled and humans have yet to visit this fascinating region.The Aristarchus crater(about 25 miles or 40 kilometers in diameter) and plateau is one of the most geologically complex areas on the Moon.In this amazing picture, NASA's Lunar Reconnaissance Orbiter spacecraft slewed 62° (west-to-east) looking across the crater.",
-                            Image = "\\assets\\images\\AristarchusCrater.jpg",
+                            Image = "\\assets\\images\\AristarchusCrater.png",
                             Name = "Aristarchus Crater",
                             Price = 1.2m,
                             Sku = "Aris/Crat/MPS"

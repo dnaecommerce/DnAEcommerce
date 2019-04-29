@@ -67,7 +67,7 @@ namespace DnAStore.Data
                     Price = (decimal)1.20,
                     Description = "Due to its spectacular high reflectance rays Aristarchus crater has been a popular landform since telescopes were first pointed towards the Moon. During the Apollo era of exploration much was learned of the wide variety of landforms in this area and it was proposed for a landing site, but the Apollo program was cancelled and humans have yet to visit this fascinating region." +
                     "The Aristarchus crater(about 25 miles or 40 kilometers in diameter) and plateau is one of the most geologically complex areas on the Moon.In this amazing picture, NASA's Lunar Reconnaissance Orbiter spacecraft slewed 62° (west-to-east) looking across the crater.",
-                    Image = @"\assets\images\AristarchusCrater.jpg"
+                    Image = @"\assets\images\AristarchusCrater.png"
                 },
                 new Product
                 {
@@ -144,7 +144,7 @@ namespace DnAStore.Data
         }
 
         // Database Tables
-        public DbSet<Product> Products;
+        public DbSet<Product> Products { get; set; }
 
     }
 }

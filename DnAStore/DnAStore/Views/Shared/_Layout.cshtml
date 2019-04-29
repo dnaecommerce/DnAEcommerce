@@ -15,6 +15,7 @@
     <h1>@ViewData["Title"]</h1>
     <nav>
         <a href="/">Home</a>
+        <a href="/Shop/Shop">Shop</a>
         @if (!SignInManager.IsSignedIn(User))
         {
             @if (ViewData["Title"] != null && (string)ViewData["Title"] == "Register")
@@ -29,7 +30,6 @@
             {
                 <a href="/Account/Register">Register</a>
                 <a href="/Account/Login">Login</a>
-                <a href="/Roles/Roles">User Roles</a>
             }
         }
         else
