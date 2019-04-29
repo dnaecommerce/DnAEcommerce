@@ -6,26 +6,13 @@ using System.Threading.Tasks;
 
 namespace DnAStore.Models.Handlers
 {
-    public class SpaceTravelCertificationRequirement : AuthorizationHandler<SpaceTravelCertificationRequirement>, IAuthorizationRequirement
+    public class SpaceTravelCertificationRequirement : IAuthorizationRequirement
     {
-        private bool _stcRequired;
+        public bool StcRequired;
 
         public SpaceTravelCertificationRequirement(bool stcRequired)
         {
-            _stcRequired = stcRequired;
-        }
-
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, SpaceTravelCertificationRequirement requirement)
-        {
-            if (!context.User.HasClaim( c => c.Type == "SpaceTravelCertified"))
-            {
-                return Task.CompletedTask;
-            }
-
-            bool SpaceTravelCertified = bool.Parse(context.User.FindFirst(c => c.Type == "SpaceTravelCertified").Value);
-
-            if (SpaceTravelCertified == _stcRequired) context.Succeed(requirement);
-            return Task.CompletedTask;
+            StcRequired = stcRequired;
         }
     }
 }

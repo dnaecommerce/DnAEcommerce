@@ -55,6 +55,7 @@ namespace DnAStore
 			});
 
             services.AddScoped<IInventoryManager, InventoryService>();
+            services.AddScoped<IAuthorizationHandler, SpaceTravelCertificationHandler>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
