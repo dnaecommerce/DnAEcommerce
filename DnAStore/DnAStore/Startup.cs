@@ -67,7 +67,7 @@ namespace DnAStore
             }
 
 			app.UseStaticFiles();
-			app.UseAuthentication();
+			app.UseAuthentication(); // Must be above where the default route is specified
             app.UseMvcWithDefaultRoute();
 
             app.Run(async (context) =>
