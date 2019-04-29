@@ -144,7 +144,7 @@ namespace DnAStore.Data
         }
 
         // Database Tables
-        public DbSet<Product> Products;
+        public DbSet<Product> Products { get; set; }
 
     }
 }

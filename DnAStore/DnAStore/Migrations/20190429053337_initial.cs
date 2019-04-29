@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DnAStore.Migrations.ProductDB
+namespace DnAStore.Migrations
 {
-    public partial class initialproducts : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -21,11 +21,11 @@ namespace DnAStore.Migrations.ProductDB
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ID);
+                    table.PrimaryKey("PK_Products", x => x.ID);
                 });
 
             migrationBuilder.InsertData(
-                table: "Product",
+                table: "Products",
                 columns: new[] { "ID", "Description", "Image", "Name", "Price", "Sku" },
                 values: new object[,]
                 {
@@ -45,7 +45,7 @@ namespace DnAStore.Migrations.ProductDB
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
         }
     }
 }
