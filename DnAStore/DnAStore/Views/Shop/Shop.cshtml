@@ -5,9 +5,6 @@
     Layout = "_Layout";
 }
 
-<p>
-    <a asp-action="Index">Home Page</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -39,7 +36,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Image)
+                    <img src="@Html.DisplayFor(modelItem => item.Image)" title="@Html.DisplayFor(modelItem => item.Name)" width="200" />
                 </td>
                 <td>
                     <a asp-action="AddToCart" asp-route-id="@item.ID">Add to Cart</a>
