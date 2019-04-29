@@ -25,9 +25,15 @@ namespace DnAStore.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public IActionResult Roles()
+		public async Task<IActionResult> Roles()
         {
-            return View();
+			RolesViewModel rolesvm = new RolesViewModel();
+
+			var result = await _userManager.GetUsersInRoleAsync("Admin");
+
+			rolesvm.Admins = result.ToList();
+
+			return View(rolesvm);
         }
 
 		// TODO Finish adding functionality for adding new admins
@@ -46,12 +52,14 @@ namespace DnAStore.Controllers
 
 					if (!(await _userManager.IsInRoleAsync(result, "Admin")))
 					{
-						await _userManager.AddClaimAsync(result, adminRoleClaim);
-					} 
+						await _userManager.AddToRoleAsync(result, "Admin");
+						//await _userManager.AddToRoleAsync(result, ApplicationRoles.Admin);
+					}
 				}
 
 			}
-			return View(rolesvm);
+			return RedirectToAction("Roles"); 
+				//View(rolesvm);
 		}
 
 		// TODO Finish adding functionality for adding new admins

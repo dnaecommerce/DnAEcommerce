@@ -5,8 +5,6 @@
     Layout = "_Layout";
 }
 
-<h1>Roles</h1>
-
 <span>You have accessed the Roles page!!</span>
 
 @* TODO Display all users with admin role on the page *@
@@ -14,6 +12,23 @@
 <form method="post">
 
     @* TODO Add buttons for adding and removing admins *@
-
+    <div class="input-block-container">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    
     <button type="submit">Add to Admins</button>
 </form>
+
+<h3>Current Admins</h3>
+
+<ul>
+    @foreach (var user in Model.Admins)
+    {
+        <li>
+            <p>@user.FirstName @user.LastName</p>
+            <p>@user.Email</p>
+        </li>
+    }
+</ul>
