@@ -23,10 +23,10 @@ namespace DnAStore.Controllers
 		[Authorize(Policy = "SpaceTravelCertified")]
         public async Task<IActionResult> SpaceTravelers()
         {
-			List<User> travelers = await _userManager.Users.ToListAsync();
-			var result = travelers.Where(user => user.SpaceTravelCertified == true);
+			//List<User> travelers = await _userManager.Users.ToListAsync();
+			//var result = travelers.Where(user => user.SpaceTravelCertified == true);
 
-			return View(result);
+			return View(/*result*/);
         }
     }
 }
