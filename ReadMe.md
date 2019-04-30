@@ -32,6 +32,22 @@ Our web application consists of a frontend site built with Razor views, HTML, CS
 and Bootstrap. The backend is written in C# using ASP.NET Core, Entity Framework Core,
 and the MVC framework. 
 
+### Claims and Policies
+
+Upon registration we capture the following claims: 
+
+* A custom claim for the user's full name (composed of their first
+and last name)
+* User's email address
+* Custom claim for whether or not the user is certified for space travel.
+
+These claims are captured from the account registration page and processed in the account
+controller so they can be used later to gate access to certain pages on the site and to
+store the user's selected products and orders. 
+
+We use the custom claims-based policy "SpaceTravelCertified" (a `bool`) to control access
+to a Space Travelers page that allows users who meet the policy requirement to see the number
+of other space travel-certified users who have shopped on the site. 
 
 ---------------------------------
 
