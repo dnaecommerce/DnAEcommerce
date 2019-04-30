@@ -20,9 +20,14 @@ namespace DnAStore.Controllers
 			_userManager = userManager;
 		}
 
+		/// <summary>
+		/// Route to Space Travelers view (gated by custom SpaceTravelCertified policy)
+		/// </summary>
+		/// <returns>SpaceTravelers view</returns>
 		[Authorize(Policy = "SpaceTravelCertified")]
         public async Task<IActionResult> SpaceTravelers()
         {
+			//TODO Display list (or just number) of other space travel-certified users
 			//List<User> travelers = await _userManager.Users.ToListAsync();
 			//var result = travelers.Where(user => user.SpaceTravelCertified == true);
 

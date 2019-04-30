@@ -13,8 +13,6 @@ namespace DnAStore.Data
 
         public UserDBContext(DbContextOptions<UserDBContext> options) : base(options)
         {
-
         }
-        
     }
 }

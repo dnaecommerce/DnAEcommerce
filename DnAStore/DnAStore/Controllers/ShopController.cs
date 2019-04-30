@@ -18,6 +18,10 @@ namespace DnAStore.Controllers
 			_inventory = inventory;
 		}
 
+		/// <summary>
+		/// Route to Shop view
+		/// </summary>
+		/// <returns>Shop view</returns>
         public async Task<IActionResult> Shop()
         {
 			List<Product> products = await _inventory.GetAllProducts();
