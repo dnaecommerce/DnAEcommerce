@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DnAStore.Models
+@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/styles/StyleSheet.css">
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/Shop/Shop">Shop</a>
+        <a href="/SpaceTraveler/SpaceTravelers">Space Travelers</a>
+
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            @if (ViewData["Title"] != null && (string)ViewData["Title"] == "Register")
+            {
+                <a href="/Account/Login">Login</a>
+            }
+            else if (ViewData["Title"] != null && (string)ViewData["Title"] == "Login")
+            {
+                <a href="/Account/Register">Register</a>
+            }
+            else
+            {
+                <a href="/Account/Register">Register</a>
+                <a href="/Account/Login">Login</a>
+            }
+        }
+        else
+        {
+            <a href="/Account/Logout">Logout</a>
+        }
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

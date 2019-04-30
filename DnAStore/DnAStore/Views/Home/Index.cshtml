@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DnAStore.Models
+@inject SignInManager<User> SignInManager
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <span>Welcome @User.Claims.First(c => c.Type == "FullName").Value!</span>
+    }
+    else
+    {
+        <span>Welcome, stranger!</span>
+    }
+</body>
+</html>
