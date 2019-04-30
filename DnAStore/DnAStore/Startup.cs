@@ -31,12 +31,12 @@ namespace DnAStore
 			Configuration = builder.Build();
 		}
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+		// This method gets called by the runtime and is used to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
+			// Database connection strings
 			var connectionString_UserDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:DefaultConnection_Users"] : Configuration["ConnectionStrings:ProductionConnection_Users"];
 
 			var connectionString_ProductsDB = Environment.IsDevelopment() ? Configuration["ConnectionStrings:DefaultConnection_Products"] : Configuration["ConnectionStrings:ProductionConnection_Products"];
@@ -44,21 +44,24 @@ namespace DnAStore
 			services.AddDbContext<UserDBContext>(options => options.UseSqlServer(connectionString_UserDB));
 			services.AddDbContext<ProductDBContext>(options => options.UseSqlServer(connectionString_ProductsDB));
 
+			// Add AspNetCore Identity
 			services.AddIdentity<User, IdentityRole>()
 				.AddRoles<IdentityRole>() // Actually need this, given the AddIdentity line above ?
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
 
+			// Custom policies
             services.AddAuthorization(options =>
 			{
                options.AddPolicy("SpaceTravelCertified", policy => policy.Requirements.Add(new SpaceTravelCertificationRequirement(true)));
 			});
 
+			// Mappings for dependency injection and Repository design pattern
             services.AddScoped<IInventoryManager, InventoryService>();
             services.AddScoped<IAuthorizationHandler, SpaceTravelCertificationHandler>();
 		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime and is used to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

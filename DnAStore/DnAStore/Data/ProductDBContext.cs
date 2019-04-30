@@ -18,7 +18,7 @@ namespace DnAStore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+			// Seed Products DB
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
@@ -145,6 +145,5 @@ namespace DnAStore.Data
 
         // Database Tables
         public DbSet<Product> Products { get; set; }
-
     }
 }
