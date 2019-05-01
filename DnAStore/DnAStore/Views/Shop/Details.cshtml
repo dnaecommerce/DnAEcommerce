@@ -1,0 +1,45 @@
+﻿@model DnAStore.Models.Product
+@{
+    ViewData["Title"] = "Product Details";
+    Layout = "_Layout";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(p => p.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(p => p.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(p => p.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(p => p.Image)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @*<td>
+                <img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="200" />
+            </td>*@
+            <td>
+                @Html.DisplayFor(p => p.Name)
+            </td>
+            <td>
+                $@Html.DisplayFor(p => p.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(p => p.Description)
+            </td>
+            <td>
+                <a asp-action="AddToBasket" asp-route-id="@Html.DisplayFor(p => p.ID)">Add to Basket</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="680" />
