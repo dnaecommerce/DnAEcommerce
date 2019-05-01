@@ -36,7 +36,7 @@
                 @Html.DisplayFor(p => p.Description)
             </td>
             <td>
-                <a asp-action="AddToBasket" asp-route-id="@Html.DisplayFor(p => p.ID)">Add to Basket</a>
+                <button type="submit" asp-action="AddToBasket" asp-route-id="@Html.DisplayFor(p => p.ID)">Add to Basket</button>
             </td>
         </tr>
     </tbody>
