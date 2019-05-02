@@ -42,5 +42,6 @@
     <main>
         @RenderBody()
     </main>
+    <div class="sidebasket">@await Component.InvokeAsync("BasketComponent", @User.Identity.Name)</div>
 </body>
 </html>
