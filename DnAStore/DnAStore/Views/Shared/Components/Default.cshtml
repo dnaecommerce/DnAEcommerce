@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DnAStore.Models.BasketItem>
+@{ 
+    Layout = null;
+}
+
+<div class="">
+    <h4>Basket</h4>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <p>Name: @item.Product.Name</p>
+                <img href="@item.Product.Image" height=50 />
+                <p>Quantity: @item.Quantity</p>
+            </li>
+        }
+    </ul>
+</div>
