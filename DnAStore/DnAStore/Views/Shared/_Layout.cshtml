@@ -42,6 +42,9 @@
     <main>
         @RenderBody()
     </main>
+    @if (ViewData["Title"] != null && (string)ViewData["Title"] != "Basket")
+    {
     <div class="sidebasket">@await Component.InvokeAsync("BasketComponent", @User.Identity.Name)</div>
+    }
 </body>
 </html>
