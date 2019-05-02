@@ -15,7 +15,7 @@ namespace DnAStore.Models.Services
 			_context = context;
 		}
 
-		public Task AddProductToBasket(Product product)
+		public Task AddProductToBasket(int id)
 		{
 			throw new NotImplementedException();
 		}

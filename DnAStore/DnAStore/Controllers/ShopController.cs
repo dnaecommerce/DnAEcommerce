@@ -50,10 +50,10 @@ namespace DnAStore.Controllers
 			return View(product);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> AddToBasket(int id)
-		{
+		//[HttpPost]
+		//public async Task<IActionResult> AddToBasket(int id)
+		//{
 
-		}
+		//}
     }
 }
