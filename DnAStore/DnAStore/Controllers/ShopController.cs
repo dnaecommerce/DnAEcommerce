@@ -50,10 +50,14 @@ namespace DnAStore.Controllers
 			return View(product);
 		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> AddToBasket(int id)
-		//{
+		[HttpPost]
+		public async Task<IActionResult> AddToBasket(int id)
+		{
+			// IF basket for user doesn't exist yet, create one
 
-		//}
-    }
+			// Add product by id to basket
+
+
+		}
+	}
 }

@@ -23,7 +23,7 @@ namespace DnAStore.Models.Services
 		}
 		
 		//TODO Finish method for adding to basket
-		public Task AddProductToBasket(int id)
+		public Task AddProductToBasket(int productID/*, int BasketID */)
 		{
 			throw new NotImplementedException();
 		}
