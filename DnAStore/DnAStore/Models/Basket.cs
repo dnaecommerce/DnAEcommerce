@@ -8,7 +8,7 @@ namespace DnAStore.Models
 	public class Basket
 	{
 		public int ID { get; set; }
-		public int UserID { get; set; }
+		public string UserName { get; set; } // This will be user's email
 		public decimal Subtotal { get; set; }
 
 		// Nav property
