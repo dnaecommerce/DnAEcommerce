@@ -43,15 +43,29 @@ namespace DnAStore.Controllers
 			}
 
 			// Check basketitems basket ID and product ID
-			var result = await _basketItemManager.FindAllByBasketId(basket.ID);
-			BasketItem basketItem = result.
+			BasketItem basketItem = await _basketItemManager.FindBasketItem(basket.ID, productId);
 
-			// Add product by id to basket
+			// If item doesn't already exist, create it; otherwise update it
+			if (basketItem == null)
+			{
+				basketItem = new BasketItem()
+				{
+					ID = 0,
+					BasketID = basket.ID,
+					ProductID = productId,
+					Quantity = 1
+				};
 
+				await _basketItemManager.CreateBasketItem(basketItem);
+			}
+			else
+			{
+				basketItem.Quantity++;
+				await _basketItemManager.UpdateBasketItem(basketItem.ID, basketItem);
+			}
 
 			// Returns nothing (similar to void return)
 			return new EmptyResult();
 		}
-
 	}
 }
