@@ -1,4 +1,8 @@
-﻿@model DnAStore.Models.ViewModels.DetailsViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using DnAStore.Models
+@model DnAStore.Models.Product
+
+@*@model DnAStore.Models.ViewModels.DetailsViewModel*@
 @{
     ViewData["Title"] = "Product Details";
     Layout = "_Layout";
@@ -8,16 +12,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(vm => vm.Product.Name)
+                @Html.DisplayNameFor(vm => vm.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(vm => vm.Product.Price)
+                @Html.DisplayNameFor(vm => vm.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(vm => vm.Product.Description)
+                @Html.DisplayNameFor(vm => vm.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(vm => vm.Product.Image)
+                @Html.DisplayNameFor(vm => vm.Image)
             </th>
         </tr>
     </thead>
@@ -27,24 +31,24 @@
                 <img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="200" />
             </td>*@
             <td>
-                @Html.DisplayFor(vm => vm.Product.Name)
+                @Html.DisplayFor(vm => vm.Name)
             </td>
             <td>
-                $@Html.DisplayFor(vm => vm.Product.Price)
+                $@Html.DisplayFor(vm => vm.Price)
             </td>
             <td>
-                @Html.DisplayFor(vm => vm.Product.Description)
+                @Html.DisplayFor(vm => vm.Description)
             </td>
             <td>
-                <form asp-action="AddToBasket">
-                    <input type="hidden" asp-for="Username" value="@User.Identity.Name" readonly />
-                    @*<input type="hidden" asp-for="" readonly />*@
-                    <input type="submit" value="AddToBasket" class="btn btn-danger" /> |
-                    <a asp-action="Shop">Back to Shopping</a>
+                <form asp-controller="Basket" asp-action="AddToBasket" method="post">
+                    <input type="hidden" name="username" value="@User.Identity.Name" readonly />
+                    <input type="hidden"  value="@Model.ID" name="productId" readonly />
+                    <button type="submit" value="AddToBasket" class="btn btn-danger"></button>
+                    @*<a asp-action="Shop">Back to Shopping</a>*@
                 </form>
             </td>
         </tr>
     </tbody>
 </table>
 
-<img src="@Html.DisplayFor(vm => vm.Product.Image)" title="@Html.DisplayFor(vm => vm.Product.Name)" width="680" />
+<img src="@Html.DisplayFor(vm => vm.Image)" title="@Html.DisplayFor(vm => vm.Name)" width="680" />

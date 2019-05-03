@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
+using DnAStore.Models.ViewModels;
 
 namespace DnAStore.Controllers
 {
@@ -20,7 +21,7 @@ namespace DnAStore.Controllers
 		}
 
 		[HttpPost]
-		public async Task<EmptyResult> AddToBasket(int productId, string username)
+		public async Task<IActionResult> AddToBasket(int productId, string username)
 		{
 			//Get user's basket by username
 			Basket basket = await _basketManager.FindByUser(username);
@@ -65,7 +66,7 @@ namespace DnAStore.Controllers
 			}
 
 			// Returns nothing (similar to void return)
-			return new EmptyResult();
+			return RedirectToAction("Shop", "Shop");
 		}
 	}
 }
