@@ -24,7 +24,7 @@ namespace DnAStore.Controllers
 		public async Task<IActionResult> AddToBasket(int productId, string username)
 		{
 			//Get user's basket by username
-			Basket basket = await _basketManager.FindByUser(username);
+			Basket basket = await _basketManager.FindBasketByUserLazy(username);
 
 			// If basket for user doesn't exist yet, create one
 			if (basket == null)
@@ -40,7 +40,7 @@ namespace DnAStore.Controllers
 				await _basketManager.CreateBasket(basket);
 
 				// Gets the new basket with assigned ID from DB
-				basket = await _basketManager.FindByUser(username);
+				basket = await _basketManager.FindBasketByUserLazy(username);
 			}
 
 			// Check basketitems basket ID and product ID

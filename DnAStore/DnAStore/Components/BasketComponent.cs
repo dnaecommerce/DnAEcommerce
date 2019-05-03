@@ -23,11 +23,10 @@ namespace DnAStore.Components
 
         public async Task<IViewComponentResult> InvokeAsync(string username)
         {
-            Basket basket = await _basketManager.FindByUser(username);
+            Basket basket = await _basketManager.FindBasketByUserEager(username);
             if (basket == null) return View(new List<BasketItem>());
-            var basketItems = await _basketItemManager.FindAllByBasketId(basket.ID);
 
-            return View(basketItems);
+            return View(basket.BasketItems);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace DnAStore.Models.Interfaces
 
 		bool DeleteBasket(int id);
 
-		Task<Basket> FindByUser(string username);
+		Task<Basket> FindBasketByUserLazy(string username);
+
+		Task<Basket> FindBasketByUserEager(string username);
 	}
 }

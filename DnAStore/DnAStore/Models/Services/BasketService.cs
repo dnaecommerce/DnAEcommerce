@@ -16,7 +16,13 @@ namespace DnAStore.Models.Services
 			_context = context;
 		}
 
-		public async Task<Basket> FindByUser(string username)
+		public async Task<Basket> FindBasketByUserLazy(string username)
+		{
+			var result = await _context.Baskets.FirstOrDefaultAsync(b => b.UserName == username);
+			return result;
+		}
+
+		public async Task<Basket> FindBasketByUserEager(string username)
 		{
 			var result = await _context.Baskets.Where(b => b.UserName == username)
 								.Include(b => b.BasketItems)
