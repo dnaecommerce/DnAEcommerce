@@ -1,4 +1,4 @@
-﻿@model DnAStore.Models.Product
+﻿@model DnAStore.Models.ViewModels.DetailsViewModel
 @{
     ViewData["Title"] = "Product Details";
     Layout = "_Layout";
@@ -8,16 +8,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(p => p.Name)
+                @Html.DisplayNameFor(vm => vm.Product.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(p => p.Price)
+                @Html.DisplayNameFor(vm => vm.Product.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(p => p.Description)
+                @Html.DisplayNameFor(vm => vm.Product.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(p => p.Image)
+                @Html.DisplayNameFor(vm => vm.Product.Image)
             </th>
         </tr>
     </thead>
@@ -27,19 +27,24 @@
                 <img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="200" />
             </td>*@
             <td>
-                @Html.DisplayFor(p => p.Name)
+                @Html.DisplayFor(vm => vm.Product.Name)
             </td>
             <td>
-                $@Html.DisplayFor(p => p.Price)
+                $@Html.DisplayFor(vm => vm.Product.Price)
             </td>
             <td>
-                @Html.DisplayFor(p => p.Description)
+                @Html.DisplayFor(vm => vm.Product.Description)
             </td>
             <td>
-                <button asp-action="AddToBasket" asp-route-id="@Html.DisplayFor(p => p.ID)">Add to Basket</button>
+                <form asp-action="AddToBasket">
+                    <input type="hidden" asp-for="Username" value="@User.Identity.Name" readonly />
+                    @*<input type="hidden" asp-for="" readonly />*@
+                    <input type="submit" value="AddToBasket" class="btn btn-danger" /> |
+                    <a asp-action="Shop">Back to Shopping</a>
+                </form>
             </td>
         </tr>
     </tbody>
 </table>
 
-<img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="680" />
+<img src="@Html.DisplayFor(vm => vm.Product.Image)" title="@Html.DisplayFor(vm => vm.Product.Name)" width="680" />
