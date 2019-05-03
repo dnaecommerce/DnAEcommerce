@@ -11,9 +11,9 @@ namespace DnAStore.Controllers
     public class ShopController : Controller
     {
 
-		private readonly IInventoryManager _inventory;
+		private readonly IProductManager _inventory;
 
-		public ShopController(IInventoryManager inventory)
+		public ShopController(IProductManager inventory)
 		{
 			_inventory = inventory;
 		}
@@ -48,16 +48,6 @@ namespace DnAStore.Controllers
 			}
 
 			return View(product);
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> AddToBasket(int id)
-		{
-			// IF basket for user doesn't exist yet, create one
-
-			// Add product by id to basket
-
-
 		}
 	}
 }

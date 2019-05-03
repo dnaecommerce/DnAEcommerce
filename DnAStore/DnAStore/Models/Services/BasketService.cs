@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DnAStore.Data;
 using DnAStore.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DnAStore.Models.Services
 {
@@ -16,32 +16,30 @@ namespace DnAStore.Models.Services
 			_context = context;
 		}
 
+		public async Task<Basket> FindByUser(string username)
+		{
+			var result = await _context.Baskets.FirstOrDefaultAsync(b => b.UserName == username);
+			return result;
+		}
+
 		public async Task CreateBasket(Basket basket)
 		{
 			_context.Add(basket);
 			await _context.SaveChangesAsync();
 		}
-		
-		//TODO Finish method for adding to basket
-		public Task AddProductToBasket(int productID/*, int BasketID */)
-		{
-			throw new NotImplementedException();
-		}
 
-		//TODO UpdateBasket method
-		public void UpdateBasket(int id, Basket basket)
+		public async Task UpdateBasket(int basketId, Basket basket, string username)
 		{
-			if (id == Basket.ID)
+			if (basketId == basket.ID && basket.UserName == username)
 			{
 				_context.Update(basket);
-				_context.SaveChanges();
+				await _context.SaveChangesAsync();
 			}
 		}
 
-		//TODO DeleteBasket method
 		public bool DeleteBasket(int id)
 		{
-			var basket = _context.Baskets.FirstOfDefault(b => b.ID == id);
+			var basket = _context.Baskets.FirstOrDefault(b => b.ID == id);
 			if (basket != null)
 			{
 				_context.Remove(basket);

@@ -57,7 +57,7 @@ namespace DnAStore
 			});
 
 			// Mappings for dependency injection and Repository design pattern
-            services.AddScoped<IInventoryManager, InventoryService>();
+            services.AddScoped<IProductManager, ProductService>();
             services.AddScoped<IAuthorizationHandler, SpaceTravelCertificationHandler>();
 		}
 

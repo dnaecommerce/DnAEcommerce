@@ -20,12 +20,12 @@ namespace DnAStore.Components
             _context = context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string username)
-        {
-            Basket basket = await _context.Baskets.FindByUser(username);
-            var basketItems = await _context.BasketItems.FindByBasketId(basket.Id);
+        //public async Task<IViewComponentResult> InvokeAsync(string username)
+        //{
+        //    Basket basket = await _context.Baskets.FindByUser(username);
+        //    var basketItems = await _context.BasketItems.FindByBasketId(basket.Id);
 
-            return View(basketItems);
-        }
+        //    return View(basketItems);
+        //}
     }
 }
