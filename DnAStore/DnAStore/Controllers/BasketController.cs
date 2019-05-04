@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
 using DnAStore.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace DnAStore.Controllers
 {
@@ -13,16 +14,23 @@ namespace DnAStore.Controllers
 	{
 		private readonly IBasketManager _basketManager;
 		private readonly IBasketItemManager _basketItemManager;
+		private SignInManager<User> _signInManager;
 
-		public BasketController(IBasketManager basketManager, IBasketItemManager basketItemManager)
+		public BasketController(IBasketManager basketManager, IBasketItemManager basketItemManager, SignInManager<User> signInManager)
 		{
 			_basketManager = basketManager;
 			_basketItemManager = basketItemManager;
+			_signInManager = signInManager;
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> AddToBasket(int productId, string username)
 		{
+			if (!_signInManager.IsSignedIn(User))
+			{
+				return RedirectToAction("Login", "Account");
+			}
+
 			//Get user's basket by username
 			Basket basket = await _basketManager.FindBasketByUserLazy(username);
 
