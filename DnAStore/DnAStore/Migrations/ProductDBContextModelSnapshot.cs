@@ -18,6 +18,42 @@ namespace DnAStore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DnAStore.Models.Basket", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Subtotal");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("DnAStore.Models.BasketItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BasketID");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BasketID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("DnAStore.Models.Product", b =>
                 {
                     b.Property<int>("ID")
@@ -129,6 +165,19 @@ namespace DnAStore.Migrations
                             Price = 12.50m,
                             Sku = "Hell/Crat/MPS"
                         });
+                });
+
+            modelBuilder.Entity("DnAStore.Models.BasketItem", b =>
+                {
+                    b.HasOne("DnAStore.Models.Basket", "Basket")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("BasketID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DnAStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

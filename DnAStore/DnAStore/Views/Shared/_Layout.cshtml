@@ -44,7 +44,7 @@
     </main>
     @if (ViewData["Title"] != null && (string)ViewData["Title"] != "Basket" && SignInManager.IsSignedIn(User))
     {
-    <div class="sidebasket">@await Component.InvokeAsync("BasketComponent", @User.Identity.Name)</div>
+    <div class="sidebasket">@await Component.InvokeAsync("BasketComponent", User.Identity.Name)</div>
     }
 </body>
 </html>
