@@ -65,7 +65,7 @@ namespace DnAStore.Controllers
 				await _basketItemManager.UpdateBasketItem(basketItem.ID, basketItem);
 			}
 
-			// Returns nothing (similar to void return)
+			// Redirect to Shop action on Shop page
 			return RedirectToAction("Shop", "Shop");
 		}
 	}
