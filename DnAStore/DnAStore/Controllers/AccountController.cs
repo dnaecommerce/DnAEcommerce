@@ -67,6 +67,13 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
+                    if (rvm.Email.ToLower() == "amanda@codefellows.com")
+                    {
+                        await _userManager.AddToRoleAsync(user, Roles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(user, Roles.Member);
+
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
