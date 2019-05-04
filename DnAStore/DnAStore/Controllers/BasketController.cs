@@ -16,6 +16,7 @@ namespace DnAStore.Controllers
 		private readonly IBasketItemManager _basketItemManager;
 		private SignInManager<User> _signInManager;
 
+		// Constructor
 		public BasketController(IBasketManager basketManager, IBasketItemManager basketItemManager, SignInManager<User> signInManager)
 		{
 			_basketManager = basketManager;
@@ -75,6 +76,27 @@ namespace DnAStore.Controllers
 
 			// Redirect to Shop action on Shop page
 			return RedirectToAction("Shop", "Shop");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> ViewBasketPage(string username)
+		{
+			//Get user's basket by username
+			Basket basket = await _basketManager.FindBasketByUserEager(username);
+
+			// If basket for user doesn't exist yet, create empty one, but don't add it to DB
+			if (basket == null)
+			{
+				basket = new Basket()
+				{
+					ID = 0,
+					UserName = username,
+					Subtotal = 0,
+					BasketItems = new List<BasketItem>()
+				};
+			}
+
+			return View(basket);
 		}
 	}
 }
