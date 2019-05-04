@@ -8,6 +8,20 @@ namespace DnAStore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Baskets",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(nullable: true),
+                    Subtotal = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Baskets", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -22,6 +36,33 @@ namespace DnAStore.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BasketItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BasketID = table.Column<int>(nullable: false),
+                    ProductID = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasketItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_BasketItems_Baskets_BasketID",
+                        column: x => x.BasketID,
+                        principalTable: "Baskets",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BasketItems_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -40,10 +81,26 @@ namespace DnAStore.Migrations
                     { 9, "Wargo Crater is an 8.6-mile (13.8 km) diameter impact crater sitting on the northwest edge of Joule T crater, on the far side of the Moon. The formation of Wargo crater had a big impact on its surroundings.An asteroid measuring several thousand feet in diameter slammed into the steeply sloping rim of Joule T crater(24 miles or 38 km in diameter) at hyper - velocity(3 to 12 miles per second) forming a crater over 3,000 feet(914 meters) deep.Massive amounts of instant magma crested the lower eastern rim and spread across the floor of Joule T.The crater is named in honor of NASA’s former chief exploration scientist, Michael Wargo.", "\\assets\\images\\WargoCrater.jpg", "Wargo Crater", 11.00m, "Warg/Crat/MPS" },
                     { 10, "The Moon's Hell Q crater, as imaged by the Lunar Reconnaissance Orbiter Camera (LROC) camera aboard NASA's Lunar Reconnaissance Orbiter spacecraft, which is now studying the Moon. The crater is about two miles across (3.4 kilometers).Some details of the impact process are still not well known.However, LROC images of very young craters are giving scientists new insights!In this image one can see delicate black streamers that landed on top of the main ejecta deposit.Either the black material was ejected late in the process or had a relatively high ejecta angle, thus taking longer to go up and come down relative to the main body of ejecta.What is that black material ? Most likely it is impact melt that cooled so fast that most turned to glass rather than minerals.Right along the rim of the crater you can see small tongues of the black material, indicating that it was a fluid when emplaced(and now hardened into glass).Its low reflectance is caused by the light - absorbing properties of glass.By the way, the crater takes its name from the Hungarian Astronomer Maximilian Hell, not that hot place.", "\\assets\\images\\HellQCrater.png", "Hell Q Crater", 12.50m, "Hell/Crat/MPS" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItems_BasketID",
+                table: "BasketItems",
+                column: "BasketID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItems_ProductID",
+                table: "BasketItems",
+                column: "ProductID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BasketItems");
+
+            migrationBuilder.DropTable(
+                name: "Baskets");
+
             migrationBuilder.DropTable(
                 name: "Products");
         }
