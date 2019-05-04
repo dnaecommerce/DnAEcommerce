@@ -46,7 +46,6 @@ namespace DnAStore
 
 			// Add AspNetCore Identity
 			services.AddIdentity<User, IdentityRole>()
-				.AddRoles<IdentityRole>() // Actually need this, given the AddIdentity line above ?
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
 
