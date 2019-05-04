@@ -3,30 +3,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DnAStore.Data;
 using Microsoft.AspNetCore.Identity;
 using DnAStore.Models;
-using DnAStore.Models.Interfaces;
 
 namespace DnAStore.Components
 {
     public class BasketComponent : ViewComponent
     {
 
-		private readonly IBasketManager _basketManager;
-		private readonly IBasketItemManager _basketItemManager;
+        private ProductDBContext _context;
+        private UserManager<User> _userManager;
 
-        public BasketComponent(IBasketManager basketManager, IBasketItemManager basketItemManager)
+        public BasketComponent(ProductDBContext context)
         {
-			_basketManager = basketManager;
-			_basketItemManager = basketItemManager;
+            _context = context;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string username)
         {
-            Basket basket = await _basketManager.FindBasketByUserEager(username);
+            Basket basket = await _context.Baskets.FindByUser(username);
             if (basket == null) return View(new List<BasketItem>());
+            var basketItems = await _context.BasketItems.FindAllByBasketId(basket.Id);
 
-            return View(basket.BasketItems);
+            return View(basketItems);
         }
     }
 }

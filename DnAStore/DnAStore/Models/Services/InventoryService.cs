@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DnAStore.Models.Services
 {
-    public class ProductService : IProductManager
+    public class InventoryService : IInventoryManager
     {
         private readonly ProductDBContext _context;
 
-        public ProductService(ProductDBContext context)
+        public InventoryService(ProductDBContext context)
         {
             _context = context;
         }
