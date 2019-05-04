@@ -79,7 +79,7 @@ namespace DnAStore.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> ViewBasketPage(string username)
+		public async Task<IActionResult> ViewBasket(string username)
 		{
 			//Get user's basket by username
 			Basket basket = await _basketManager.FindBasketByUserEager(username);

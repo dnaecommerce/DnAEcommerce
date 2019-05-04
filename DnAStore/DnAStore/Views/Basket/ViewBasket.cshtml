@@ -9,7 +9,6 @@
     <a href="/Shop/Shop">Back to Shop</a>
 </p>
 
-@*
 @if (Model.BasketItems.Count > 0)
 {
     <table class="table">
@@ -41,7 +40,7 @@
                     </td>
                     <td>
                         @*<a asp-action="Edit" asp-route-id="@item.ID">Change Quantity</a> |*@
-                        @*<a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ID">Delete Item</a>
                     </td>
                 </tr>
@@ -52,5 +51,4 @@
 else
 {
     <span>Your basket is currently empty</span>
-}*@
-
+}
