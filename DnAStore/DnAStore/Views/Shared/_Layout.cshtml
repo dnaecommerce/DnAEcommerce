@@ -36,7 +36,7 @@
         }
         else
         {
-            <a asp-controller="Basket" asp-action="ViewBasket" asp-route-id="@User.Identity.Name" >Basket</a>
+            <a asp-controller="Basket" asp-action="ViewBasket" asp-route-id="@User.Identity.Name" name="@User.Identity.Name" >Basket</a>
             <a href="/Account/Logout">Logout</a>
         }
     </nav>
