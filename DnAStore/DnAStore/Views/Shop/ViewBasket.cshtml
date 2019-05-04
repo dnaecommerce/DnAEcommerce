@@ -1,0 +1,53 @@
+﻿@model DnAStore.Models.Basket
+@{
+    ViewData["Title"] = "View Basket";
+    Layout = "_Layout";
+}
+
+<hr />
+<p>
+    <a href="/Shop/Shop">Back to Shop</a>
+</p>
+@if (Model.BasketItems.Count == 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasketItems[0].Product.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasketItems[0].Product.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BasketItems[0].Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BasketItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        <input type="number" name="UpdatedQty" value="@item.Quantity" />
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.ID">Change Quantity</a> |*@
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete Item</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>Your basket is currently empty</span>
+}
