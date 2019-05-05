@@ -71,7 +71,7 @@ namespace DnAStore.Controllers
 			else
 			{
 				basketItem.Quantity++;
-				await _basketItemManager.UpdateBasketItem(basketItem.ID, basketItem);
+				await _basketItemManager.UpdateBasketItem(basketItem.ID);
 			}
 
 			// Redirect to Shop action on Shop page
@@ -97,6 +97,27 @@ namespace DnAStore.Controllers
 			}
 
 			return View(basket);
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> EditBasketItemQuantity(int basketItemId)
+		{
+		/*
+			if (basketItemId == null)
+			{
+				return NotFound();
+			}
+
+			await _basketItemManager.UpdateBasketItem(basketItemId);
+		*/
+		}
+
+		[HttpDelete]
+		public async Task<IActionResult> DeleteBasketItem(int basketId, int productId)
+		{
+			var basketItem = await _basketItemManager.FindBasketItem(basketId, productId);
+			_basketItemManager.DeleteBasketItem(basketItem.ID);
+			return RedirectToAction(nameof(ViewBasket));
 		}
 	}
 }

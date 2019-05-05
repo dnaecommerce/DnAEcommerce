@@ -36,24 +36,35 @@ namespace DnAStore.Models.Services
 			return result;
 		}
 
-		public async Task UpdateBasketItem(int id, BasketItem basketItem)
+		public async Task UpdateBasketItem(int basketItemId)
 		{
-			if (basketItem.ID == id)
+			var basketItem = _context.BasketItems.FirstOrDefaultAsync(bi => bi.ID == basketItemId);
+			if (basketItem != null)
 			{
 				_context.Update(basketItem);
 				await _context.SaveChangesAsync();
 			}
+
+			//if (basketItem.ID == basketItemId)
+			//{
+			//	_context.Update(basketItem);
+			//	await _context.SaveChangesAsync();
+			//}
 		}
 
-		public bool DeleteBasketItem(int id)
+		public bool DeleteBasketItem(int basketItemId)
 		{
-			var basketItem = _context.BasketItems.FirstOrDefault(bi => bi.ID == id);
+			var basketItem = _context.BasketItems.FirstOrDefault(bi => bi.ID == basketItemId);
 			if (basketItem != null)
 			{
 				_context.Remove(basketItem);
 				_context.SaveChanges();
+				return true;
 			}
-			return true;
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
