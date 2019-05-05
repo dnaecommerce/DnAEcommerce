@@ -30,26 +30,25 @@ namespace DnAStore.Models.Services
 			return result;
 		}
 
+		public async Task<BasketItem> FindBasketItem(int basketItemId)
+		{
+			var result = await _context.BasketItems.FirstOrDefaultAsync(bi => bi.ID == basketItemId);
+			return result;
+		}
+
 		public async Task<List<BasketItem>> FindAllByBasketId(int basketId)
 		{
 			var result = await _context.BasketItems.Where(bi => bi.BasketID == basketId).ToListAsync();
 			return result;
 		}
 
-		public async Task UpdateBasketItem(int basketItemId)
+		public async Task UpdateBasketItem(BasketItem basketItem)
 		{
-			var basketItem = _context.BasketItems.FirstOrDefaultAsync(bi => bi.ID == basketItemId);
 			if (basketItem != null)
 			{
 				_context.Update(basketItem);
 				await _context.SaveChangesAsync();
 			}
-
-			//if (basketItem.ID == basketItemId)
-			//{
-			//	_context.Update(basketItem);
-			//	await _context.SaveChangesAsync();
-			//}
 		}
 
 		public bool DeleteBasketItem(int basketItemId)

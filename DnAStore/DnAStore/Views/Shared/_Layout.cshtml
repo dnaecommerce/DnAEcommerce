@@ -36,8 +36,7 @@
         }
         else
         {
-            // Not sure if the name and value attributes will actually be necessary
-            <a asp-controller="Basket" asp-action="ViewBasket" asp-route-id="@User.Identity.Name" name="username" value="@User.Identity.Name" >Basket</a>
+            <a href="/Basket/ViewBasket">Basket</a>
             <a href="/Account/Logout">Logout</a>
         }
     </nav>

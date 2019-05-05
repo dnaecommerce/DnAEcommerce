@@ -71,7 +71,7 @@ namespace DnAStore.Controllers
 			else
 			{
 				basketItem.Quantity++;
-				await _basketItemManager.UpdateBasketItem(basketItem.ID);
+				await _basketItemManager.UpdateBasketItem(basketItem);
 			}
 
 			// Redirect to Shop action on Shop page
@@ -79,8 +79,10 @@ namespace DnAStore.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> ViewBasket(string username)
+		public async Task<IActionResult> ViewBasket()
 		{
+			string username = HttpContext.User.Identity.Name;
+			
 			//Get user's basket by username
 			Basket basket = await _basketManager.FindBasketByUserEager(username);
 
@@ -99,24 +101,34 @@ namespace DnAStore.Controllers
 			return View(basket);
 		}
 
-		[HttpPut]
-		public async Task<IActionResult> EditBasketItemQuantity(int basketItemId)
+		[HttpPost]
+		public async Task<IActionResult> EditBasketItemQuantity(int basketItemId, int qty)
 		{
-		/*
-			if (basketItemId == null)
+			if (qty < 1)
+			{
+				return RemoveBasketItem(basketItemId);
+			}
+
+			var basketItem = await _basketItemManager.FindBasketItem(basketItemId);
+
+			if (basketItem == null)
 			{
 				return NotFound();
 			}
 
-			await _basketItemManager.UpdateBasketItem(basketItemId);
-		*/
+			// Update quantity property of basket item with new qty
+			basketItem.Quantity = qty;
+
+			await _basketItemManager.UpdateBasketItem(basketItem);
+
+			return RedirectToAction(nameof(ViewBasket));
 		}
 
-		[HttpDelete]
-		public async Task<IActionResult> DeleteBasketItem(int basketId, int productId)
+		[HttpPost]
+		public IActionResult RemoveBasketItem(int basketItemId)
 		{
-			var basketItem = await _basketItemManager.FindBasketItem(basketId, productId);
-			_basketItemManager.DeleteBasketItem(basketItem.ID);
+			_basketItemManager.DeleteBasketItem(basketItemId);
+
 			return RedirectToAction(nameof(ViewBasket));
 		}
 	}

@@ -15,13 +15,13 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.BasketItems[0].Product.Name)
+                    Neighborhood Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.BasketItems[0].Product.Price)
+                    Lot Price
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.BasketItems[0].Quantity)
+                    Number of Lots
                 </th>
             </tr>
         </thead>
@@ -36,12 +36,19 @@
                         $@Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
                     <td>
-                        <input type="number" name="UpdatedQty" value="@item.Quantity" />
+                        <form method="post" asp-controller="Basket" asp-action="EditBasketItemQuantity" >
+                            <input type="number" name="qty" value="@item.Quantity" />
+                            <button name="basketItemId" value="@item.ID">Change Quantity</button>
+                        </form>
                     </td>
                     <td>
-                        @*<a asp-action="EditBasketItemQuantity" asp-route-id="@item.ID">Change Quantity</a> |*@
-                        <a asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                        <a asp-action="DeleteBasketItem" asp-route-id="@item.ID">Delete Item</a>
+                        <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">
+                            <button type="submit">Details</button>
+                        </form>
+
+                        <form method="post" asp-action="RemoveBasketItem" >
+                            <button name="basketItemId" value="@item.ID" >Delete Item</button>
+                        </form>
                     </td>
                 </tr>
             }
