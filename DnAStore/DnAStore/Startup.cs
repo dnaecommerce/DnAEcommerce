@@ -15,6 +15,7 @@ using DnAStore.Models.Interfaces;
 using DnAStore.Models.Services;
 using DnAStore.Models.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace DnAStore
 {
@@ -59,7 +60,10 @@ namespace DnAStore
 			services.AddScoped<IBasketManager, BasketService>();
             services.AddScoped<IProductManager, ProductService>();
 			services.AddScoped<IBasketItemManager, BasketItemService>();
+			services.AddScoped<IOrderManager, OrderService>();
+			services.AddScoped<IOrderItemManager, OrderItemService>();
             services.AddScoped<IAuthorizationHandler, SpaceTravelCertificationHandler>();
+			services.AddScoped<IEmailSender, EmailSenderService>();
 		}
 
         // This method gets called by the runtime and is used to configure the HTTP request pipeline.
