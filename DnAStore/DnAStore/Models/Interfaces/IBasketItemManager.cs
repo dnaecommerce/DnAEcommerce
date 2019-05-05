@@ -11,9 +11,11 @@ namespace DnAStore.Models.Interfaces
 
 		Task<BasketItem> FindBasketItem(int basketId, int productId);
 
-		Task UpdateBasketItem(int id, BasketItem basketItem);
+		Task<BasketItem> FindBasketItem(int basketItemId);
 
-		bool DeleteBasketItem(int id);
+		Task UpdateBasketItem(BasketItem basketItem);
+
+		bool DeleteBasketItem(int basketItemId);
 
 		Task<List<BasketItem>> FindAllByBasketId(int basketId);
 	}

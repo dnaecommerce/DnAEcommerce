@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnAStore.Migrations
 {
     [DbContext(typeof(ProductDBContext))]
-    [Migration("20190503030833_initial")]
+    [Migration("20190504224226_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
