@@ -74,10 +74,10 @@ namespace DnAStore
 			app.UseAuthentication(); // Must be above where the default route is specified
             app.UseMvcWithDefaultRoute();
 
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
-        }
+			app.Run(async (context) =>
+			{
+				await context.Response.WriteAsync("Hello World!");
+			});
+		}
     }
 }
