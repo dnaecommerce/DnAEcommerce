@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DnAStore.Migrations
 {
     [DbContext(typeof(ProductDBContext))]
-    [Migration("20190504224226_initial")]
+    [Migration("20190506002154_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,44 @@ namespace DnAStore.Migrations
                     b.HasIndex("ProductID");
 
                     b.ToTable("BasketItems");
+                });
+
+            modelBuilder.Entity("DnAStore.Models.Order", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("FinalTotal");
+
+                    b.Property<decimal>("Subtotal");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("DnAStore.Models.OrderItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderID");
+
+                    b.Property<int>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("DnAStore.Models.Product", b =>
@@ -174,6 +212,19 @@ namespace DnAStore.Migrations
                     b.HasOne("DnAStore.Models.Basket", "Basket")
                         .WithMany("BasketItems")
                         .HasForeignKey("BasketID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DnAStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DnAStore.Models.OrderItem", b =>
+                {
+                    b.HasOne("DnAStore.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DnAStore.Models.Product", "Product")
