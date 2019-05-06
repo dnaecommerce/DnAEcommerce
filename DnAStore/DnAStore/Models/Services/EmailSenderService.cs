@@ -21,7 +21,7 @@ namespace DnAStore.Models.Services
 		/// <param name="email">email address to send message to</param>
 		/// <param name="subject">email subject</param>
 		/// <param name="htmlMessage">email message content</param>
-		/// <returns></returns>
+		/// <returns>An async task</returns>
 		public async Task SendEmailAsync(string email, string subject, string htmlMessage)
 		{
 			SendGridClient client = new SendGridClient(Configuration["SendGridKey"]);

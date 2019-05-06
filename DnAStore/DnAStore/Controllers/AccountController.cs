@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DnAStore.Models;
 using DnAStore.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DnAStore.Controllers
@@ -14,11 +15,13 @@ namespace DnAStore.Controllers
 	{
 		private UserManager<User> _userManager;
 		private SignInManager<User> _signInManager;
+        private IEmailSender _emailSender;
 
-		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
+            _emailSender = emailSender;
 		}
 
         /// <summary>
@@ -77,6 +80,9 @@ namespace DnAStore.Controllers
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
+
+                await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+
 			}
 			return View(rvm);
 		}
