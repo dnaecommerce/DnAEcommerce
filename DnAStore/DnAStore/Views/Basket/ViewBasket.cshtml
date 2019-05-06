@@ -29,6 +29,9 @@
                 <th>
                     Number of Lots
                 </th>
+                <th>
+                    @* Item Price Subtotals *@
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +51,9 @@
                         </form>
                     </td>
                     <td>
+                        @* TODO Calc total price of items of each product type *@
+                    </td>
+                    <td>
                         <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">
                             <button type="submit">Details</button>
                         </form>
@@ -59,6 +65,16 @@
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    @* TODO Display order subtotal *@
+                </td>
+            </tr>
+        </tfoot>
     </table>
 }
 else
