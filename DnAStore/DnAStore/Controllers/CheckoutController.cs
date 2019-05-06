@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,14 +18,16 @@ namespace DnAStore.Controllers
         private readonly IBasketManager _basketManager;
         private readonly IBasketItemManager _basketItemManager;
 		private readonly IEmailSender _emailSender;
+		private readonly IHostingEnvironment _environment;
 
-        public CheckoutController(IOrderManager orderManager, IOrderItemManager orderItemManager, IBasketManager basketManager, IBasketItemManager basketItemManager, IEmailSender emailSender)
+        public CheckoutController(IOrderManager orderManager, IOrderItemManager orderItemManager, IBasketManager basketManager, IBasketItemManager basketItemManager, IEmailSender emailSender, IHostingEnvironment environment)
         {
             _orderItemManager = orderItemManager;
             _orderManager = orderManager;
             _basketItemManager = basketItemManager;
             _basketManager = basketManager;
 			_emailSender = emailSender;
+			_environment = environment;
         }
 
         [HttpPost]
@@ -70,9 +73,14 @@ namespace DnAStore.Controllers
                     //_basketItemManager.DeleteBasketItem(bi.ID);
                 }
 
-                //_basketManager.DeleteBasket(result.ID);
+				//_basketManager.DeleteBasket(result.ID);
 
-				await SendReceiptEmail(order.UserName, order.ID);
+				// Don't send receipt email if in dev environment (to avoid excessive emailing)
+				if (!_environment.IsDevelopment())
+				{
+					// Send receipt email
+					await SendReceiptEmail(order.UserName, order.ID);
+				}
 
                 return View(order);
             }
