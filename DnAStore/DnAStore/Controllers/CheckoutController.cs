@@ -67,10 +67,10 @@ namespace DnAStore.Controllers
 
 					order.OrderItems.Add(orderItem);
                     await _orderItemManager.CreateOrderItem(orderItem);
-                    _basketItemManager.DeleteBasketItem(bi.ID);
+                    //_basketItemManager.DeleteBasketItem(bi.ID);
                 }
 
-                _basketManager.DeleteBasket(result.ID);
+                //_basketManager.DeleteBasket(result.ID);
 
 				await SendReceiptEmail(order.UserName, order.ID);
 
