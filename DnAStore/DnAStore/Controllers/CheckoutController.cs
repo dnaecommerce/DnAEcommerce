@@ -55,9 +55,11 @@ namespace DnAStore.Controllers
 				};
                 await _orderManager.CreateOrder(order);
 
+                result.BasketItems.Reverse();
                 // Loops through the basket items creating new order items and adding them to the order
-                foreach (var bi in result.BasketItems)
+                for (int i = result.BasketItems.Count - 1; i > -1; i--)
                 {
+                    BasketItem bi = result.BasketItems[i];
                     OrderItem orderItem = new OrderItem
 					{
 						OrderID = order.ID,
@@ -70,13 +72,12 @@ namespace DnAStore.Controllers
 
 					order.OrderItems.Add(orderItem);
                     await _orderItemManager.CreateOrderItem(orderItem);
-                    //_basketItemManager.DeleteBasketItem(bi.ID);
+                    _basketItemManager.DeleteBasketItem(bi.ID);
                 }
+                _basketManager.DeleteBasket(result.ID);
 
-				//_basketManager.DeleteBasket(result.ID);
-
-				// Don't send receipt email if in dev environment (to avoid excessive emailing)
-				if (!_environment.IsDevelopment())
+                // Don't send receipt email if in dev environment (to avoid excessive emailing)
+                if (!_environment.IsDevelopment())
 				{
 					// Send receipt email
 					await SendReceiptEmail(order.UserName, order.ID);
