@@ -11,6 +11,12 @@
 
 @if (Model.BasketItems.Count > 0)
 {
+    <div>
+        <form method="post" asp-controller="Checkout" asp-action="Receipt">
+            <button type="submit" name="username" value="@Model.UserName">Checkout</button>
+        </form>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -38,7 +44,7 @@
                     <td>
                         <form method="post" asp-controller="Basket" asp-action="EditBasketItemQuantity">
                             <input type="number" name="qty" value="@item.Quantity" />
-                            <button name="basketItemId" value="@item.ID">Change Quantity</button>
+                            <button type="submit" name="basketItemId" value="@item.ID">Change Quantity</button>
                         </form>
                     </td>
                     <td>
@@ -47,7 +53,7 @@
                         </form>
 
                         <form method="post" asp-action="RemoveBasketItem">
-                            <button name="basketItemId" value="@item.ID">Delete Item</button>
+                            <button type="submit" name="basketItemId" value="@item.ID">Delete Item</button>
                         </form>
                     </td>
                 </tr>
