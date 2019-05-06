@@ -40,10 +40,10 @@ namespace DnAStore.Controllers
                     OrderItem orderItem = new OrderItem { OrderID = order.ID, Order = order, ID = 0, ProductID = bi.ProductID, Product = bi.Product, Quantity = bi.Quantity };
                     order.OrderItems.Add(orderItem);
                     await _orderItemManager.CreateOrderItem(orderItem);
-                    _basketItemManager.DeleteBasketItem(bi.ID);
+                    //_basketItemManager.DeleteBasketItem(bi.ID);
                 }
 
-                _basketManager.DeleteBasket(result.ID);
+                //_basketManager.DeleteBasket(result.ID);
 
                 return View(order);
             }
