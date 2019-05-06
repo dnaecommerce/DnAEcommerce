@@ -27,7 +27,7 @@ namespace DnAStore.Models.Services
 			SendGridClient client = new SendGridClient(Configuration["SendGridKey"]);
 			SendGridMessage msg = new SendGridMessage();
 
-			msg.SetFrom("noreply-admin@dnastore.com", "NoReply");
+			msg.SetFrom("noreply-admin@dnastore.com", "D&A Ecommerce");
 			msg.AddTo(email);
 			msg.SetSubject(subject);
 			msg.AddContent(MimeType.Html, htmlMessage);
