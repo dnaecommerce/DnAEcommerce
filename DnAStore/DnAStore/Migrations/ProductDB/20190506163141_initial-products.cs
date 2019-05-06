@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DnAStore.Migrations
+namespace DnAStore.Migrations.ProductDB
 {
-    public partial class initial : Migration
+    public partial class initialproducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

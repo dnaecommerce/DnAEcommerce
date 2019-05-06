@@ -77,11 +77,12 @@ namespace DnAStore.Controllers
 
                     await _userManager.AddToRoleAsync(user, Roles.Member);
 
+                    await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
 
-                await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
 
 			}
 			return View(rvm);
