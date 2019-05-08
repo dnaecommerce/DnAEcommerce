@@ -35,8 +35,11 @@ nav {
     z-index: 2; }
   nav .basket-button {
     margin-right: 0;
-    width: 10vw !important; }
+    width: 10vw !important;
+    border-radius: 0.5vw 0 0 0.5vw !important; }
   nav button {
+    justify-content: flex-end;
+    padding-right: 0.75vw !important;
     width: 4vw !important;
     margin-left: -1vw;
     background: #999 !important;
