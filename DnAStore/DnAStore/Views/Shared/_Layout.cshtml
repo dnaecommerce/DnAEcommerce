@@ -8,11 +8,21 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="~/styles/StyleSheet.css">
 </head>
 <body>
     <h1>@ViewData["Title"]</h1>
+    <!--Navbar-->
+    <nav>
+
+        
+    </nav>
+    <!--/.Navbar-->
     <nav>
         <a href="/">Home</a>
         <a href="/Shop/Shop">Shop</a>
@@ -36,16 +46,35 @@
         }
         else
         {
-            <a href="/Basket/ViewBasket">Basket</a>
+            @if (ViewData["Title"] != null && (string)ViewData["Title"] != "View Basket" && (string)ViewData["Title"] != "Receipt" && SignInManager.IsSignedIn(User))
+            {
+            <a href="/Basket/ViewBasket" class="basket-button">Basket</a>
+                <!-- Collapse button -->
+                <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+                        aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="dark-blue-text">
+                        <i class="fas fa-bars fa-1x"></i>
+                    </span>
+                </button>
+
+                <!-- Collapsible content -->
+            }
+            else
+            {
+                <a href = "/Basket/ViewBasket">Basket</a>
+            }
+
             <a href="/Account/Logout">Logout</a>
         }
+
+
     </nav>
     <main>
-        @RenderBody()
-        @if (ViewData["Title"] != null && (string)ViewData["Title"] != "Basket" && SignInManager.IsSignedIn(User))
+        @if (ViewData["Title"] != null && (string)ViewData["Title"] != "View Basket" && (string)ViewData["Title"] != "Receipt" && SignInManager.IsSignedIn(User))
         {
-        <div class="sidebasket">@await Component.InvokeAsync("BasketComponent", User.Identity.Name)</div>
+            <div class="sidebasket collapse navbar-collapse" id="navbarSupportedContent1">@await Component.InvokeAsync("BasketComponent", User.Identity.Name)</div>
         }
+        @RenderBody()
     </main>
 </body>
 </html>
