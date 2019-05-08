@@ -28,8 +28,7 @@ at each stage from registration and login to browsing products and checking out.
 
 ### Web App Tools and Architecture
 
-Our web application consists of a frontend site built with Razor views, HTML, CSS,
-and Bootstrap. The backend is written in C# using ASP.NET Core, Entity Framework Core,
+Our web application consists of a frontend site built with Razor views, HTML, and CSS. The backend is written in C# using ASP.NET Core, Entity Framework Core,
 and the MVC framework. 
 
 ### Claims and Policies
@@ -51,30 +50,42 @@ of other space travel-certified users who have shopped on the site.
 
 ---------------------------------
 
-## Tools Used
-Microsoft Visual Studio Community 2017
+## Tools and Technologies Used
 
 - C#
-- ASP.Net Core
+- ASP.NET Core MVC
 - Entity Framework
-- MVC
-- xUnit
 - HTML
 - CSS
 - Bootstrap
+- Sass/SCSS
+- xUnit
+- SendGrid Email Service
 - SQL Server
 - Azure
-
----------------------------------
-
-## Recent Updates
-
-#### v. 1.0
-*Published app v1.0* - 2019-04-30
 
 ---------------------------
 
 ## Model Properties and Requirements
+
+Our SQL Server database schemas are informed by the models below. 
+
+Data in the Basket and BasketItem models is created
+and stored once per customer and persists for the duration
+of the shopping checkout process. Upon completion of checkout,
+the data is transferred and stored in the Order and OrderItem models,
+and the instances of the customer's Basket and BasketItem are removed.
+Beyond the properties included in Basket, the Order model has an additional
+property for tracking the final total price of the order.
+
+### User
+
+| Parameter | Type | Required |
+| --- | --- | --- |
+| ID  | int | YES |
+| FirstName | string | YES |
+| LastName | string | YES |
+| SpaceTravelCertified | bool | YES |
 
 ### Product
 
@@ -87,17 +98,54 @@ Microsoft Visual Studio Community 2017
 | Description | string | YES |
 | Image | string | YES |
 
-### User
+### Basket
 
 | Parameter | Type | Required |
 | --- | --- | --- |
 | ID  | int | YES |
-| FirstName | string | YES |
-| LastName | string | YES |
-| SpaceTravelCertified | bool | YES |
+| UserName | string | YES |
+| Subtotal | decimal | YES |
+| --- | --- | --- |
+| List\<BasketItem\> | BasketItems | YES | 
+
+### BasketItem
+
+| Parameter | Type | Required |
+| --- | --- | --- |
+| ID  | int | YES |
+| BasketID | int | YES |
+| ProductID | int | YES |
+| Quantity | int | YES |
+| --- | --- | --- |
+| Basket | Basket | YES | 
+| Product | Product | YES |
+
+### Order
+
+| Parameter | Type | Required |
+| --- | --- | --- |
+| ID  | int | YES |
+| UserName | string | YES |
+| Subtotal | decimal | YES |
+| FinalTotal | decimal | YES |
+| --- | --- | --- |
+| List\<OrderItem\> | OrderItems | YES | 
+
+### OrderItem
+
+| Parameter | Type | Required |
+| --- | --- | --- |
+| ID  | int | YES |
+| OrderID | int | YES |
+| ProductID | int | YES |
+| Quantity | int | YES |
+| --- | --- | --- |
+| Order | Order | YES | 
+| Product | Product | YES |
 
 ---------------------------
 
 ## Change Log
 
-1.0: *Published site on master branch* - 2019-04-30
+0.1.0: *Published site on master branch* - 2019-04-30
+0.2.0: *Site updated with order checkout functionality, SendGrid email service integration, and styling across site* - 2019-05-08
