@@ -73,7 +73,6 @@ namespace DnAStore.Controllers
 				basketItem.Quantity++;
 				await _basketItemManager.UpdateBasketItem(basketItem);
 			}
-            basket.CalcSubtotal();
 			// Redirect to Shop action on Shop page
 			return RedirectToAction("Shop", "Shop");
 		}
@@ -98,6 +97,7 @@ namespace DnAStore.Controllers
 				};
 			}
             basket.CalcSubtotal();
+            await _basketManager.UpdateBasket(basket);
 			return View(basket);
 		}
 

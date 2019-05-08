@@ -37,13 +37,10 @@ namespace DnAStore.Models.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task UpdateBasket(int basketId, Basket basket, string username)
+		public async Task UpdateBasket(Basket basket)
 		{
-			if (basketId == basket.ID && basket.UserName == username)
-			{
 				_context.Update(basket);
 				await _context.SaveChangesAsync();
-			}
 		}
 
 		public bool DeleteBasket(int id)

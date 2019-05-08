@@ -11,7 +11,7 @@ namespace DnAStore.Models.Interfaces
 
 		Task CreateBasket(Basket basket);
 
-		Task UpdateBasket(int basketId, Basket basket, string username);
+		Task UpdateBasket(Basket basket);
 
 		bool DeleteBasket(int id);
 
