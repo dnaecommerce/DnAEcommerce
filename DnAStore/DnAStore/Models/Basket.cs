@@ -13,5 +13,14 @@ namespace DnAStore.Models
 
 		// Nav property
 		public List<BasketItem> BasketItems { get; set; }
+
+        public void CalcSubtotal()
+        {
+            Subtotal = 0;
+            foreach (var item in BasketItems)
+            {
+                Subtotal += (item.Product.Price * item.Quantity);
+            }
+        }
 	}
 }
