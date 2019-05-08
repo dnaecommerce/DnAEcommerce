@@ -1,14 +1,56 @@
 ﻿body {
-    background: #888;
+    background: fixed;
+    background-image: url(../assets/images/sitebackground.jpg);
     color: white;
+    h1 {
+        text-align: center;
+    }
 }
 
 main {
     width: 90%;
+    margin: 0 auto;
+    background: rgba(ivory, 0.75);
+    padding: 2vw;
+    border: 0.5vw solid steelblue;
+    border-radius: 1.5vw;
 }
 
 form {
     vertical-align: middle;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a, button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #ccc !important;
+        text-decoration-style: none !important;
+        color: #222 !important;
+        padding: 0.5vw 2vw;
+        height: 5vh !important;
+        width: 13vw !important;
+        border-radius: 0.5vw !important;
+        margin: 1vw 2vw;
+        z-index: 2;
+    }
+
+    .basket-button {
+        margin-right: 0;
+        width: 10vw !important;
+    }
+
+    button {
+        width: 4vw !important;
+        margin-left: -1vw;
+        background: #999 !important;
+        z-index: 1;
+    }
 }
 
 .input-block-container, .input-block-container-button {
