@@ -1,6 +1,6 @@
 ﻿body {
-  background: fixed;
-  background-image: url(../assets/images/sitebackground.jpg);
+  background: url(../assets/images/sitebackground.jpg) no-repeat center center fixed;
+  background-size: cover;
   color: white; }
   body h1 {
     text-align: center; }
