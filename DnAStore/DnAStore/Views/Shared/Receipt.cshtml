@@ -1,0 +1,54 @@
+﻿@model DnAStore.Models.Order
+
+@{ 
+    ViewData["Title"] = "Order Receipt";
+    Layout = "_Layout";
+}
+
+<div>
+    <h3>Receipt for Order #@Model.ID</h3>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Neighborhood Name
+                </th>
+                <th>
+                    Lot Price
+                </th>
+                <th>
+                    Number of Lots
+                </th>
+                <th>
+                    Total Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Name)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Product.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        $@(item.Quantity * item.Product.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <p>Subtotal: $@Model.Subtotal</p>
+        <p>Final Total: $@Model.FinalTotal</p>
+    </div>
+
+</div>

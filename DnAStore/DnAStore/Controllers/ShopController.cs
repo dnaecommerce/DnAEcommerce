@@ -11,9 +11,9 @@ namespace DnAStore.Controllers
     public class ShopController : Controller
     {
 
-		private readonly IInventoryManager _inventory;
+		private readonly IProductManager _inventory;
 
-		public ShopController(IInventoryManager inventory)
+		public ShopController(IProductManager inventory)
 		{
 			_inventory = inventory;
 		}
@@ -27,5 +27,27 @@ namespace DnAStore.Controllers
 			List<Product> products = await _inventory.GetAllProducts();
 			return View(products);
         }
-    }
+
+		/// <summary>
+		/// Route to product's Details view
+		/// </summary>
+		/// <param name="id">product ID</param>
+		/// <returns>asynchronous task</returns>
+		public async Task<IActionResult> Details(int id)
+		{
+			if (id < 1)
+			{
+				return NotFound();
+			}
+
+			var product = await _inventory.GetProductByID(id);
+
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			return View(product);
+		}
+	}
 }

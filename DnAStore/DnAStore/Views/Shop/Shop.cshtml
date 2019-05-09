@@ -20,6 +20,7 @@
             <th>
                 @Html.DisplayNameFor(product => product.Image)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -39,7 +40,7 @@
                     <img src="@Html.DisplayFor(modelItem => item.Image)" title="@Html.DisplayFor(modelItem => item.Name)" width="200" />
                 </td>
                 <td>
-                    <a asp-action="AddToCart" asp-route-id="@item.ID">Add to Cart</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">View Details</a>
                 </td>
             </tr>
         }

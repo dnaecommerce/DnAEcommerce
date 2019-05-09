@@ -15,6 +15,7 @@ using DnAStore.Models.Interfaces;
 using DnAStore.Models.Services;
 using DnAStore.Models.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace DnAStore
 {
@@ -46,7 +47,6 @@ namespace DnAStore
 
 			// Add AspNetCore Identity
 			services.AddIdentity<User, IdentityRole>()
-				.AddRoles<IdentityRole>() // Actually need this, given the AddIdentity line above ?
 				.AddEntityFrameworkStores<UserDBContext>()
 				.AddDefaultTokenProviders();
 
@@ -57,8 +57,13 @@ namespace DnAStore
 			});
 
 			// Mappings for dependency injection and Repository design pattern
-            services.AddScoped<IInventoryManager, InventoryService>();
+			services.AddScoped<IBasketManager, BasketService>();
+            services.AddScoped<IProductManager, ProductService>();
+			services.AddScoped<IBasketItemManager, BasketItemService>();
+			services.AddScoped<IOrderManager, OrderService>();
+			services.AddScoped<IOrderItemManager, OrderItemService>();
             services.AddScoped<IAuthorizationHandler, SpaceTravelCertificationHandler>();
+			services.AddScoped<IEmailSender, EmailSenderService>();
 		}
 
         // This method gets called by the runtime and is used to configure the HTTP request pipeline.
@@ -73,10 +78,10 @@ namespace DnAStore
 			app.UseAuthentication(); // Must be above where the default route is specified
             app.UseMvcWithDefaultRoute();
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
-        }
+			app.Run(async (context) =>
+			{
+				await context.Response.WriteAsync("Hello World!");
+			});
+		}
     }
 }

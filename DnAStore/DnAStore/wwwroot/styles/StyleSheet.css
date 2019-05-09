@@ -1,53 +1,73 @@
 ﻿body {
-    background: #888;
-    color: white;
-}
+  background: url(../assets/images/sitebackground.jpg) no-repeat center center fixed;
+  background-size: cover;
+  color: white; }
+  body h1 {
+    text-align: center; }
 
 main {
-    width: 90%;
-}
+  width: 90%;
+  margin: 0 auto;
+  background: rgba(255, 255, 240, 0.75);
+  padding: 2vw;
+  border: 0.5vw solid steelblue;
+  border-radius: 1.5vw; }
 
 form {
-    vertical-align: middle;
-}
+  vertical-align: middle; }
 
-.input-block-container {
-    display: inline-grid;
-    grid-template-columns: 5vw 15vw auto 20vw 5vw;
-    grid-template-rows: 5vh 5vh auto;
-    height: 15vh;
-    width: 40vw;
-    padding: 1%;
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  nav a, nav button {
+    display: inline-flex;
     align-items: center;
-}
+    justify-content: center;
+    background: #ccc !important;
+    text-decoration-style: none !important;
+    color: #222 !important;
+    padding: 0.5vw 2vw;
+    height: 5vh !important;
+    width: 13vw !important;
+    border-radius: 0.5vw !important;
+    margin: 1vw 2vw;
+    z-index: 2; }
+  nav .basket-button {
+    margin-right: 0;
+    width: 10vw !important;
+    border-radius: 0.5vw 0 0 0.5vw !important; }
+  nav button {
+    justify-content: flex-end;
+    padding-right: 0.75vw !important;
+    width: 4vw !important;
+    margin-left: -1vw;
+    background: #999 !important;
+    z-index: 1; }
 
-.input-block-container-button {
-    display: inline-grid;
-    grid-template-columns: 5vw 15vw auto 5vw 15vw 5vw;
-    grid-template-rows: 5vh 5vh auto;
-    height: 15vh;
-    width: 40vw;
-    padding: 1%;
-    align-items: center;
-}
-
-.input-block-container label, .input-block-container-button label {
+.input-block-container, .input-block-container-button {
+  display: inline-grid;
+  grid-template-columns: 5vw 15vw auto 20vw 5vw;
+  grid-template-rows: 5vh 5vh auto;
+  height: 15vh;
+  width: 40vw;
+  padding: 1%;
+  align-items: center; }
+  .input-block-container label, .input-block-container-button label {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;
-    grid-row-end: 3;
-}
-
-.input-block-container input, .input-block-container-button input {
+    grid-row-end: 3; }
+  .input-block-container input, .input-block-container-button input {
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 2;
-    grid-row-end: 3;
-}
-
-.input-block-container-button button {
+    grid-row-end: 3; }
+  .input-block-container button, .input-block-container-button button {
     grid-column-start: 5;
     grid-column-end: 6;
     grid-row-start: 2;
-    grid-row-end: 3;
-}
+    grid-row-end: 3; }
+
+.input-block-container-button {
+  grid-template-columns: 5vw 15vw auto 5vw 15vw 5vw; }
