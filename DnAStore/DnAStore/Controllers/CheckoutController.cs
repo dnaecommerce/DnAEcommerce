@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
+using DnAStore.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -31,9 +32,36 @@ namespace DnAStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Receipt(string username)
+        public async Task<IActionResult> ShippingDetails(string username)
         {
-            var result = await _basketManager.FindBasketByUserEager(username);
+            //Get user's basket by username
+            Basket basket = await _basketManager.FindBasketByUserEager(username);
+
+            // If basket for user doesn't exist yet, create empty one, but don't add it to DB
+            if (basket == null)
+            {
+                RedirectToAction("ViewBasket", "Basket");
+            }
+            else
+            {
+                basket.CalcSubtotal();
+                await _basketManager.UpdateBasket(basket);
+            }
+            OrderConfirmation orderConfirmation = new OrderConfirmation { ShippingDetails = new ShippingDetails(), Basket = basket };
+            return View(orderConfirmation);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Receipt([Bind(Prefix = "ShippingDetails")]ShippingDetails sdvm)
+        {
+            //American Express 	370000000000002
+            //Discover	6011000000000012
+            //Visa	4007000000027
+            //Mastercard	5424000000000015
+            string[] cardTypes = { "American Express", "Discover", "Visa", "Mastercard" };
+            string[] cardNumbers = { "370000000000002", "6011000000000012", "4007000000027", "5424000000000015" };
+
+            var result = await _basketManager.FindBasketByUserEager(sdvm.Username);
             if (result != null)
             {
 				// Capture date and time order was placed
@@ -51,7 +79,11 @@ namespace DnAStore.Controllers
 					UserName = result.UserName,
 					Subtotal = result.Subtotal,
 					FinalTotal = result.Subtotal,
-					OrderItems = new List<OrderItem>()
+					OrderItems = new List<OrderItem>(),
+                    Address = sdvm.Address,
+                    State = sdvm.State,
+                    PostalCode = sdvm.PostalCode,
+                    PhoneNumber = sdvm.PhoneNumber
 				};
                 await _orderManager.CreateOrder(order);
 
