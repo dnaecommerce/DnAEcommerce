@@ -96,8 +96,11 @@ namespace DnAStore.Controllers
 					BasketItems = new List<BasketItem>()
 				};
 			}
-            basket.CalcSubtotal();
-            await _basketManager.UpdateBasket(basket);
+            else
+            {
+                basket.CalcSubtotal();
+                await _basketManager.UpdateBasket(basket);
+            }
 			return View(basket);
 		}
 

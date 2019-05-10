@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DnAStore.Models;
 using DnAStore.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace DnAStore.Controllers
 		private UserManager<User> _userManager;
 		private SignInManager<User> _signInManager;
         private IEmailSender _emailSender;
+        private IHostingEnvironment _environment;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender, IHostingEnvironment environment)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
             _emailSender = emailSender;
+            _environment = environment;
 		}
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace DnAStore.Controllers
 
                     await _userManager.AddToRoleAsync(user, Roles.Member);
 
-                    await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+                    if (!_environment.IsDevelopment()) await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
 
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");

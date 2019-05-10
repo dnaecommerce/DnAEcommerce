@@ -11,6 +11,11 @@ namespace DnAStore.Models
         public string UserName { get; set; } // This will be user's email
         public decimal Subtotal { get; set; }
         public decimal FinalTotal { get; set; }
+        public string Address { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string TransactionNumber { get; set; }
 		//TODO Add in property for order date/time (capture this upon order placement)
 
         // Nav property
