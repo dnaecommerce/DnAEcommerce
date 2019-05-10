@@ -40,13 +40,7 @@ namespace DnAStore.Controllers
             // If basket for user doesn't exist yet, create empty one, but don't add it to DB
             if (basket == null)
             {
-                basket = new Basket()
-                {
-                    ID = 0,
-                    UserName = username,
-                    Subtotal = 0,
-                    BasketItems = new List<BasketItem>()
-                };
+                RedirectToAction("ViewBasket", "Basket");
             }
             else
             {
