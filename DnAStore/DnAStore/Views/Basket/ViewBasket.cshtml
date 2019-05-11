@@ -55,7 +55,7 @@
                         $@(item.Product.Price * item.Quantity)
                     </td>
                     <td>
-                        <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">
+                        <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.Product.ID">
                             <button type="submit">Details</button>
                         </form>
 
