@@ -30,14 +30,14 @@ namespace DnAStore.Models.Utilities
 
 			// Code to go in controller action
 
-			Blob blob = new Blob(Configuration);
-			// For getting container
-			await blob.GetContainer("product-image-asset-blob");
+			//Blob blob = new Blob(Configuration);
+			//// For getting container
+			//await blob.GetContainer("product-image-asset-blob");
 
-			// For getting blob
-			CloudBlob blobImage = await blob.GetBlob("AristarchusCrater.png", "product-image-asset-blob");
+			//// For getting blob
+			//CloudBlob blobImage = await blob.GetBlob("AristarchusCrater.png", "product-image-asset-blob");
 
-			var image = blobImage.Uri;
+			//var image = blobImage.Uri;
 		}
 
 		public async Task<CloudBlob> GetBlob(string imageName, string containerName)
