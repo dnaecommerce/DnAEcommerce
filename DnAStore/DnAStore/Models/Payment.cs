@@ -1,6 +1,6 @@
 ﻿using AuthorizeNet.Api.Contracts.V1;
+using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Controllers.Bases;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,15 +13,13 @@ namespace DnAStore.Models
 	{
 
 		public IConfiguration Configuration { get; }
-		private UserManager<User> _userManager;
 
-		public Payment(IConfiguration configuration, UserManager<User> userManager)
+		public Payment(IConfiguration configuration)
 		{
 			Configuration = configuration;
-			_userManager = userManager;
 		}
 
-		public string Run()
+		public string Run(Basket basket)
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
@@ -40,9 +38,45 @@ namespace DnAStore.Models
 			};
 
 			customerAddressType billingAddress = GetAddress();
+
+			paymentType paymentType = new paymentType { Item = creditCard };
+
+			// Call GetLineItems (private method defined below)
+			lineItemType[] lineItems = GetLineItems(basket);
+
+			transactionRequestType transRequestType = new transactionRequestType
+			{
+				transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
+				amount = basket.Subtotal, //TODO Verify this should be Subtotal rather than FinalTotal
+				billTo = billingAddress,
+				payment = paymentType,
+				lineItems = lineItems
+			};
+
+			createTransactionRequest request = new createTransactionRequest
+			{
+				transactionRequest = transRequestType
+			};
+
+			// Instantiate controller to call the service
+			var controller = new createTransactionController(request);
+			controller.Execute();
+
+			// Get response from the service (including errors if any)
+			var response = controller.GetApiResponse();
+
+			// Validate response
+			if (response != null)
+			{
+				if (response.messages.resultCode == messageTypeEnum.Ok)
+				{
+					return "OK";
+				}
+			}
+			return "NOT OK";
 		}
 
-		customerAddressType GetAddress()
+		private customerAddressType GetAddress()
 		{
 			customerAddressType address = new customerAddressType()
 			{
@@ -55,6 +89,31 @@ namespace DnAStore.Models
 			};
 
 			return address;
+		}
+
+		/// <summary>
+		/// Gets array of line items for order
+		/// </summary>
+		/// <param name="basket">Basket</param>
+		/// <returns>Array of lineItemType</returns>
+		private lineItemType[] GetLineItems(Basket basket)
+		{
+			lineItemType[] items = new lineItemType[basket.BasketItems.Count];
+
+			int count = 0;
+			foreach (BasketItem bi in basket.BasketItems)
+			{
+				items[count] = new lineItemType
+				{
+					itemId = bi.ID.ToString(),
+					name = bi.Product.Name,
+					quantity = bi.Quantity,
+					unitPrice = bi.Product.Price
+				};
+				count++;
+			}
+
+			return items;
 		}
 	}
 }
