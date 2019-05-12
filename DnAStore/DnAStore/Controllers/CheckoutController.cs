@@ -108,10 +108,9 @@ namespace DnAStore.Controllers
                 }
                 _basketManager.DeleteBasket(result.ID);
 
-                // Don't send receipt email if in dev environment (to avoid excessive emailing)
+                // Send receipt email only if not in dev environment (to avoid excessive emailing)
                 if (!_environment.IsDevelopment())
 				{
-					// Send receipt email
 					await SendReceiptEmail(order.UserName, order.ID);
 				}
 
@@ -121,6 +120,12 @@ namespace DnAStore.Controllers
             return RedirectToAction("Basket", "ViewBasketPage");
         }
 
+		/// <summary>
+		/// Sends receipt email to customer as part of checkout process
+		/// </summary>
+		/// <param name="emailAddress">user email address</param>
+		/// <param name="orderId">order ID</param>
+		/// <returns></returns>
 		public async Task SendReceiptEmail(string emailAddress, int orderId)
 		{
 			// Email subject

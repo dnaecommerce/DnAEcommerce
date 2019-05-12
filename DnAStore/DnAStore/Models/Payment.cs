@@ -19,11 +19,13 @@ namespace DnAStore.Models
 			Configuration = configuration;
 		}
 
+
+		//TODO Invoke this method in Receipt action in CheckoutController
 		public string Run(Basket basket)
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
-			// Define merchant info
+			// Define merchant info (authentication / transaction ID
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
 			{
 				name = Configuration["AuthorizeNet_ApiLoginId"],
@@ -37,11 +39,12 @@ namespace DnAStore.Models
 				expirationDate = Configuration["ExpirationDate_AmEx"]
 			};
 
+			// Get billing address via GetAddress method defined below
 			customerAddressType billingAddress = GetAddress();
 
 			paymentType paymentType = new paymentType { Item = creditCard };
 
-			// Call GetLineItems (private method defined below)
+			// Get line items via GetLineItems method defined below
 			lineItemType[] lineItems = GetLineItems(basket);
 
 			transactionRequestType transRequestType = new transactionRequestType
@@ -70,9 +73,16 @@ namespace DnAStore.Models
 			{
 				if (response.messages.resultCode == messageTypeEnum.Ok)
 				{
+					//TODO Decide what to return if successful
+						// Redirect to Receipt page?
+
 					return "OK";
 				}
 			}
+
+			//TODO Decide what to return if *not* successful
+				// Redirect to Page Model?
+
 			return "NOT OK";
 		}
 
