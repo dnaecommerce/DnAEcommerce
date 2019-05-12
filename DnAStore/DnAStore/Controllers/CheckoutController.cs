@@ -87,7 +87,9 @@ namespace DnAStore.Controllers
 				};
                 await _orderManager.CreateOrder(order);
 
-                result.BasketItems.Reverse();
+				// Reverse list before iterating over list backwards (to delete basket items starting from back of list; otherwise loop fails because previous index was deleted)
+				result.BasketItems.Reverse();
+
                 // Loops through the basket items creating new order items and adding them to the order
                 for (int i = result.BasketItems.Count - 1; i > -1; i--)
                 {
