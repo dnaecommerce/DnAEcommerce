@@ -21,7 +21,7 @@ namespace DnAStore.Models
 
 
 		//TODO Invoke this method in Receipt action in CheckoutController
-		public string Run(Basket basket)
+		public string Run(Order order)
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
@@ -40,17 +40,17 @@ namespace DnAStore.Models
 			};
 
 			// Get billing address via GetAddress method defined below
-			customerAddressType billingAddress = GetAddress();
+			customerAddressType billingAddress = GetAddress(order);
 
 			paymentType paymentType = new paymentType { Item = creditCard };
 
 			// Get line items via GetLineItems method defined below
-			lineItemType[] lineItems = GetLineItems(basket);
+			lineItemType[] lineItems = GetLineItems(order);
 
 			transactionRequestType transRequestType = new transactionRequestType
 			{
 				transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-				amount = basket.Subtotal, //TODO Verify this should be Subtotal rather than FinalTotal
+				amount = order.Subtotal, //TODO Verify this should be Subtotal rather than FinalTotal
 				billTo = billingAddress,
 				payment = paymentType,
 				lineItems = lineItems
@@ -86,16 +86,16 @@ namespace DnAStore.Models
 			return "NOT OK";
 		}
 
-		private customerAddressType GetAddress()
+		private customerAddressType GetAddress(Order order)
 		{
 			customerAddressType address = new customerAddressType()
 			{
-				firstName = "", //TODO populate dynamically 
-				lastName = "", //TODO populate dynamically
-				address = "", //TODO populate dynamically
-				city = "", //TODO populate dynamically
-				state = "", //TODO populate dynamically
-				zip = "" //TODO populate dynamically
+				firstName = order.FirstName,
+				lastName = order.LastName,
+				address = order.Address,
+				city = order.City,
+				state = order.State,
+				zip = order.PostalCode
 			};
 
 			return address;
@@ -104,21 +104,21 @@ namespace DnAStore.Models
 		/// <summary>
 		/// Gets array of line items for order
 		/// </summary>
-		/// <param name="basket">Basket</param>
+		/// <param name="order">order</param>
 		/// <returns>Array of lineItemType</returns>
-		private lineItemType[] GetLineItems(Basket basket)
+		private lineItemType[] GetLineItems(Order order)
 		{
-			lineItemType[] items = new lineItemType[basket.BasketItems.Count];
+			lineItemType[] items = new lineItemType[order.OrderItems.Count];
 
 			int count = 0;
-			foreach (BasketItem bi in basket.BasketItems)
+			foreach (OrderItem item in order.OrderItems)
 			{
 				items[count] = new lineItemType
 				{
-					itemId = bi.ID.ToString(),
-					name = bi.Product.Name,
-					quantity = bi.Quantity,
-					unitPrice = bi.Product.Price
+					itemId = item.ID.ToString(),
+					name = item.Product.Name,
+					quantity = item.Quantity,
+					unitPrice = item.Product.Price
 				};
 				count++;
 			}

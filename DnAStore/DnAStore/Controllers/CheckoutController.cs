@@ -80,6 +80,8 @@ namespace DnAStore.Controllers
 					Subtotal = result.Subtotal,
 					FinalTotal = result.Subtotal,
 					OrderItems = new List<OrderItem>(),
+					FirstName = sdvm.FirstName,
+					LastName = sdvm.LastName,
                     Address = sdvm.Address,
                     State = sdvm.State,
                     PostalCode = sdvm.PostalCode,

@@ -16,6 +16,16 @@
 
         <form method="post" asp-controller="Checkout" asp-action="Receipt">
             <div class="input-block-container">
+                <label asp-for="ShippingDetails.FirstName"></label>
+                <input asp-for="ShippingDetails.FirstName" />
+                <span asp-validation-for="ShippingDetails.FirstName" class="text-danger"></span>
+            </div>
+            <div class="input-block-container">
+                <label asp-for="ShippingDetails.LastName"></label>
+                <input asp-for="ShippingDetails.LastName" />
+                <span asp-validation-for="ShippingDetails.LastName" class="text-danger"></span>
+            </div>
+            <div class="input-block-container">
                 <label asp-for="ShippingDetails.Address"></label>
                 <input asp-for="ShippingDetails.Address" />
                 <span asp-validation-for="ShippingDetails.Address" class="text-danger"></span>
