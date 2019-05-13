@@ -14,6 +14,11 @@
     <div>
         <h4>Shipping Details</h4>
 
+        @if (Model.TransactionFailure)
+        {
+            <p>Something went wrong. Please verify that your information is correct.</p>
+        }
+
         <form method="post" asp-controller="Checkout" asp-action="Receipt">
             <div class="input-block-container">
                 <label asp-for="ShippingDetails.FirstName"></label>
@@ -29,6 +34,11 @@
                 <label asp-for="ShippingDetails.Address"></label>
                 <input asp-for="ShippingDetails.Address" />
                 <span asp-validation-for="ShippingDetails.Address" class="text-danger"></span>
+            </div>
+            <div class="input-block-container">
+                <label asp-for="ShippingDetails.City"></label>
+                <input asp-for="ShippingDetails.City" />
+                <span asp-validation-for="ShippingDetails.City" class="text-danger"></span>
             </div>
             <div class="input-block-container">
                 <label asp-for="ShippingDetails.State"></label>

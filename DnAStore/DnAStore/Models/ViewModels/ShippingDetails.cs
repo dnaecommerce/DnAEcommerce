@@ -21,6 +21,9 @@ namespace DnAStore.Models.ViewModels
 		[Required]
         public string Address { get; set; }
 
+		[Required]
+        public string City { get; set; }
+
         [Required]
         public string State { get; set; }
 

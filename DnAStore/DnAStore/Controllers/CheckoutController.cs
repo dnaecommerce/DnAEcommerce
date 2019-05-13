@@ -9,6 +9,7 @@ using DnAStore.Models.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace DnAStore.Controllers
 {
@@ -20,8 +21,10 @@ namespace DnAStore.Controllers
         private readonly IBasketItemManager _basketItemManager;
 		private readonly IEmailSender _emailSender;
 		private readonly IHostingEnvironment _environment;
+		private readonly IConfiguration _configuration;
 
-        public CheckoutController(IOrderManager orderManager, IOrderItemManager orderItemManager, IBasketManager basketManager, IBasketItemManager basketItemManager, IEmailSender emailSender, IHostingEnvironment environment)
+
+		public CheckoutController(IOrderManager orderManager, IOrderItemManager orderItemManager, IBasketManager basketManager, IBasketItemManager basketItemManager, IEmailSender emailSender, IHostingEnvironment environment, IConfiguration configuration)
         {
             _orderItemManager = orderItemManager;
             _orderManager = orderManager;
@@ -29,6 +32,7 @@ namespace DnAStore.Controllers
             _basketManager = basketManager;
 			_emailSender = emailSender;
 			_environment = environment;
+			_configuration = configuration;
         }
 
         [HttpPost]
@@ -47,79 +51,83 @@ namespace DnAStore.Controllers
                 basket.CalcSubtotal();
                 await _basketManager.UpdateBasket(basket);
             }
-            OrderConfirmation orderConfirmation = new OrderConfirmation { ShippingDetails = new ShippingDetails(), Basket = basket };
+            OrderConfirmation orderConfirmation = new OrderConfirmation { ShippingDetails = new ShippingDetails(), Basket = basket, TransactionFailure = false };
             return View(orderConfirmation);
         }
 
         [HttpPost]
         public async Task<IActionResult> Receipt([Bind(Prefix = "ShippingDetails")]ShippingDetails sdvm)
         {
-            //American Express 	370000000000002
-            //Discover	6011000000000012
-            //Visa	4007000000027
-            //Mastercard	5424000000000015
-            string[] cardTypes = { "American Express", "Discover", "Visa", "Mastercard" };
-            string[] cardNumbers = { "370000000000002", "6011000000000012", "4007000000027", "5424000000000015" };
-
             var result = await _basketManager.FindBasketByUserEager(sdvm.Username);
-            if (result != null)
-            {
+			if (result != null)
+			{
 				// Capture date and time order was placed
 				DateTime orderDateTime = DateTime.Now;
 
 				//TODO Use orderDateTime to set date/time property of Order object
-					// OR, could capture order date/time inside SendReceiptEmail method
-						// NOTE: This latter option for setting date/time property of order would require us to query the DB again
+				// OR, could capture order date/time inside SendReceiptEmail method
+				// NOTE: This latter option for setting date/time property of order would require us to query the DB again
 
-				
-				// Creates the order from the Basket information and saves it in the database.
-                Order order = new Order
+				// Run() method on payment class
+				Payment payment = new Payment(_configuration);
+				var response = payment.Run(result, sdvm);
+
+				if (response != null)
 				{
-					ID = 0,
-					UserName = result.UserName,
-					Subtotal = result.Subtotal,
-					FinalTotal = result.Subtotal,
-					OrderItems = new List<OrderItem>(),
-					FirstName = sdvm.FirstName,
-					LastName = sdvm.LastName,
-                    Address = sdvm.Address,
-                    State = sdvm.State,
-                    PostalCode = sdvm.PostalCode,
-                    PhoneNumber = sdvm.PhoneNumber
-				};
-                await _orderManager.CreateOrder(order);
-
-				// Reverse list before iterating over list backwards (to delete basket items starting from back of list; otherwise loop fails because previous index was deleted)
-				result.BasketItems.Reverse();
-
-                // Loops through the basket items creating new order items and adding them to the order
-                for (int i = result.BasketItems.Count - 1; i > -1; i--)
-                {
-                    BasketItem bi = result.BasketItems[i];
-                    OrderItem orderItem = new OrderItem
+					// Creates the order from the Basket information and saves it in the database.
+					Order order = new Order
 					{
-						OrderID = order.ID,
-						Order = order,
 						ID = 0,
-						ProductID = bi.ProductID,
-						Product = bi.Product,
-						Quantity = bi.Quantity
+						UserName = result.UserName,
+						Subtotal = result.Subtotal,
+						FinalTotal = result.Subtotal,
+						OrderItems = new List<OrderItem>(),
+						FirstName = sdvm.FirstName,
+						LastName = sdvm.LastName,
+						Address = sdvm.Address,
+						State = sdvm.State,
+						PostalCode = sdvm.PostalCode,
+						PhoneNumber = sdvm.PhoneNumber
 					};
+					await _orderManager.CreateOrder(order);
 
-					order.OrderItems.Add(orderItem);
-                    await _orderItemManager.CreateOrderItem(orderItem);
-                    _basketItemManager.DeleteBasketItem(bi.ID);
-                }
-                _basketManager.DeleteBasket(result.ID);
+					// Reverse list before iterating over list backwards (to delete basket items starting from back of list; otherwise loop fails because previous index was deleted)
+					result.BasketItems.Reverse();
 
-                // Send receipt email only if not in dev environment (to avoid excessive emailing)
-                if (!_environment.IsDevelopment())
-				{
-					await SendReceiptEmail(order.UserName, order.ID);
+					// Loops through the basket items creating new order items and adding them to the order
+					for (int i = result.BasketItems.Count - 1; i > -1; i--)
+					{
+						BasketItem bi = result.BasketItems[i];
+						OrderItem orderItem = new OrderItem
+						{
+							OrderID = order.ID,
+							Order = order,
+							ID = 0,
+							ProductID = bi.ProductID,
+							Product = bi.Product,
+							Quantity = bi.Quantity
+						};
+
+						order.OrderItems.Add(orderItem);
+						await _orderItemManager.CreateOrderItem(orderItem);
+						_basketItemManager.DeleteBasketItem(bi.ID);
+					}
+					_basketManager.DeleteBasket(result.ID);
+
+					// Send receipt email only if not in dev environment (to avoid excessive emailing)
+					if (!_environment.IsDevelopment())
+					{
+						await SendReceiptEmail(order.UserName, order.ID);
+					}
+
+					return View(order);
 				}
-
-                return View(order);
-            }
+				else
+				{
+					OrderConfirmation orderConfirmation = new OrderConfirmation { ShippingDetails = sdvm, Basket = result, TransactionFailure = true };
+					return RedirectToAction("ShippingDetails", "Checkout", orderConfirmation);
+				}
+			}
 
             return RedirectToAction("Basket", "ViewBasketPage");
         }

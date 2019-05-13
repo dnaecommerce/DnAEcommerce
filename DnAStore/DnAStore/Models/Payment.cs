@@ -1,6 +1,7 @@
 ﻿using AuthorizeNet.Api.Contracts.V1;
 using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Controllers.Bases;
+using DnAStore.Models.ViewModels;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,11 @@ namespace DnAStore.Models
 
 
 		//TODO Invoke this method in Receipt action in CheckoutController
-		public string Run(Order order)
+		public transactionResponse Run(Basket basket, ShippingDetails sdvm)
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
+
+			string[] cardTypes = { "AmEx", "Discover", "Visa", "MasterCard" };
 
 			// Define merchant info (authentication / transaction ID
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
@@ -35,22 +38,22 @@ namespace DnAStore.Models
 
 			creditCardType creditCard = new creditCardType
 			{
-				cardNumber = Configuration["CreditCardNumber_AmEx"],
-				expirationDate = Configuration["ExpirationDate_AmEx"]
+				cardNumber = Configuration[$"CreditCardNumber_{cardTypes[sdvm.Card]}"],
+				expirationDate = Configuration[$"ExpirationDate_{cardTypes[sdvm.Card]}"]
 			};
 
 			// Get billing address via GetAddress method defined below
-			customerAddressType billingAddress = GetAddress(order);
+			customerAddressType billingAddress = GetAddress(sdvm);
 
 			paymentType paymentType = new paymentType { Item = creditCard };
 
 			// Get line items via GetLineItems method defined below
-			lineItemType[] lineItems = GetLineItems(order);
+			lineItemType[] lineItems = GetLineItems(basket);
 
 			transactionRequestType transRequestType = new transactionRequestType
 			{
 				transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-				amount = order.Subtotal, //TODO Verify this should be Subtotal rather than FinalTotal
+				amount = basket.Subtotal,
 				billTo = billingAddress,
 				payment = paymentType,
 				lineItems = lineItems
@@ -74,28 +77,31 @@ namespace DnAStore.Models
 				if (response.messages.resultCode == messageTypeEnum.Ok)
 				{
 					//TODO Decide what to return if successful
-						// Redirect to Receipt page?
+					// Redirect to Receipt page?
 
-					return "OK";
+					return response.transactionResponse;
 				}
 			}
 
-			//TODO Decide what to return if *not* successful
-				// Redirect to Page Model?
-
-			return "NOT OK";
+			// If *not* successful
+			return null;
 		}
 
-		private customerAddressType GetAddress(Order order)
+		/// <summary>
+		/// Captures address details from Order model
+		/// </summary>
+		/// <param name="order">order</param>
+		/// <returns>customer address</returns>
+		private customerAddressType GetAddress(ShippingDetails sdvm)
 		{
 			customerAddressType address = new customerAddressType()
 			{
-				firstName = order.FirstName,
-				lastName = order.LastName,
-				address = order.Address,
-				city = order.City,
-				state = order.State,
-				zip = order.PostalCode
+				firstName = sdvm.FirstName,
+				lastName = sdvm.LastName,
+				address = sdvm.Address,
+				city = sdvm.City,
+				state = sdvm.State,
+				zip = sdvm.PostalCode
 			};
 
 			return address;
@@ -106,12 +112,12 @@ namespace DnAStore.Models
 		/// </summary>
 		/// <param name="order">order</param>
 		/// <returns>Array of lineItemType</returns>
-		private lineItemType[] GetLineItems(Order order)
+		private lineItemType[] GetLineItems(Basket basket)
 		{
-			lineItemType[] items = new lineItemType[order.OrderItems.Count];
+			lineItemType[] items = new lineItemType[basket.BasketItems.Count];
 
 			int count = 0;
-			foreach (OrderItem item in order.OrderItems)
+			foreach (BasketItem item in basket.BasketItems)
 			{
 				items[count] = new lineItemType
 				{
