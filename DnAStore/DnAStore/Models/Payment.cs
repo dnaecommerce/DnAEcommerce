@@ -26,7 +26,7 @@ namespace DnAStore.Models
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
-			string[] cardTypes = { "AmEx", "Discover", "Visa", "MasterCard" };
+			string[] cardTypes = { "AmEx", "Discover", "Visa", "Mastercard" };
 
 			// Define merchant info (authentication / transaction ID
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
