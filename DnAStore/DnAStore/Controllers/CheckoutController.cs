@@ -85,9 +85,11 @@ namespace DnAStore.Controllers
 						FirstName = sdvm.FirstName,
 						LastName = sdvm.LastName,
 						Address = sdvm.Address,
+						City = sdvm.City,
 						State = sdvm.State,
 						PostalCode = sdvm.PostalCode,
-						PhoneNumber = sdvm.PhoneNumber
+						PhoneNumber = sdvm.PhoneNumber,
+						TransactionNumber = response.transId
 					};
 					await _orderManager.CreateOrder(order);
 
@@ -125,7 +127,7 @@ namespace DnAStore.Controllers
 				else
 				{
 					OrderConfirmation orderConfirmation = new OrderConfirmation { ShippingDetails = sdvm, Basket = result, TransactionFailure = true };
-					return RedirectToAction("ShippingDetails", "Checkout", orderConfirmation);
+					return View("ShippingDetails", orderConfirmation);
 				}
 			}
 

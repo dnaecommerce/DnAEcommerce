@@ -76,14 +76,11 @@ namespace DnAStore.Models
 			{
 				if (response.messages.resultCode == messageTypeEnum.Ok)
 				{
-					//TODO Decide what to return if successful
-					// Redirect to Receipt page?
-
 					return response.transactionResponse;
 				}
 			}
 
-			// If *not* successful
+			// If response *not* successful
 			return null;
 		}
 
