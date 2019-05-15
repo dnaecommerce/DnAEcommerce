@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace DnAStore.Controllers
 {
@@ -18,13 +19,16 @@ namespace DnAStore.Controllers
 		private SignInManager<User> _signInManager;
         private IEmailSender _emailSender;
         private IHostingEnvironment _environment;
+		public IConfiguration Configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender, IHostingEnvironment environment)
+
+		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender, IHostingEnvironment environment, IConfiguration configuration)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
             _emailSender = emailSender;
             _environment = environment;
+			Configuration = configuration;
 		}
 
         /// <summary>
@@ -73,7 +77,7 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (rvm.Email.ToLower() == "amanda@codefellows.com" || rvm.Email.ToLower() == /* TA email */)
+                    if (rvm.Email.ToLower() == Configuration["InstructorEmailAddress"] || rvm.Email.ToLower() == Configuration["TAEmailAddress"])
                     {
                         await _userManager.AddToRoleAsync(user, Roles.Admin);
                     }
