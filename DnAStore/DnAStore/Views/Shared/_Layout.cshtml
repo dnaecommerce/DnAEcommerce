@@ -48,6 +48,7 @@
         {
             @if (ViewData["Title"] != null && (string)ViewData["Title"] != "View Basket" && (string)ViewData["Title"] != "Receipt" && SignInManager.IsSignedIn(User))
             {
+                <a asp-page="/User/Profile">My Profile</a>
                 <a href="/Basket/ViewBasket" class="basket-button">Basket</a>
                 <!-- Collapse button -->
                 <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
@@ -63,7 +64,7 @@
             {
                 <a href = "/Basket/ViewBasket">Basket</a>
             }
-            @if (SignInManager.IsSignedIn(User) @*&& User.IsInRole("Admin")*@)
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 <a asp-page="/Admin/Dashboard">Admin</a>
             }
