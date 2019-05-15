@@ -63,9 +63,9 @@
             {
                 <a href = "/Basket/ViewBasket">Basket</a>
             }
-            @if (SignInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+            @if (SignInManager.IsSignedIn(User) @*&& User.IsInRole("Admin")*@)
             {
-                <a href="/Pages/Admin/Dashboard">Admin</a>
+                <a asp-page="/Admin/Dashboard">Admin</a>
             }
             <a href="/Account/Logout">Logout</a>
         }

@@ -77,8 +77,9 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (rvm.Email.ToLower() == Configuration["InstructorEmailAddress"] || rvm.Email.ToLower() == Configuration["TAEmailAddress"])
-                    {
+                    if (rvm.Email.ToLower() == Configuration["InstructorEmailAddress"] || rvm.Email.ToLower() == Configuration["TAEmailAddress"] || rvm.Email.ToLower() == Configuration["Developer1Email"])
+
+					{
                         await _userManager.AddToRoleAsync(user, Roles.Admin);
                     }
 
@@ -90,13 +91,14 @@ namespace DnAStore.Controllers
 						await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
 					}
 
-                    if (User.IsInRole("Admin"))
+                    if (await _userManager.IsInRoleAsync(user, Roles.Admin))
                     {
-                        return RedirectToPage("Dashboard", "Admin");
-                    }
+						//return RedirectToPage("/Dashboard", "Admin");
+						return LocalRedirect("~/Admin/Dashboard");
+					}
 
-                    // Redirect to Index action on Home page
-                    return RedirectToAction("Index", "Home");
+					// Redirect to Index action on Home page
+					return RedirectToAction("Index", "Home");
 				}
 			}
 
@@ -127,9 +129,10 @@ namespace DnAStore.Controllers
                 if (result.Succeeded)
                 {
 
-                    if (User.IsInRole("Admin"))
+                    if (await _userManager.IsInRoleAsync(await _userManager.FindByEmailAsync(lvm.Email), Roles.Admin))
                     {
-                        return RedirectToPage("Dashboard", "Admin");
+                        //return RedirectToPage("/Dashboard", "Admin");
+						return LocalRedirect("~/Admin/Dashboard");
                     }
 
                     return RedirectToAction("Index", "Home");
