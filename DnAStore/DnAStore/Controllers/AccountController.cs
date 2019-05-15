@@ -90,8 +90,13 @@ namespace DnAStore.Controllers
 						await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
 					}
 
-					// Redirect to Index action on Home page
-					return RedirectToAction("Index", "Home");
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToPage("Dashboard", "Admin");
+                    }
+
+                    // Redirect to Index action on Home page
+                    return RedirectToAction("Index", "Home");
 				}
 			}
 
@@ -121,6 +126,12 @@ namespace DnAStore.Controllers
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
                 if (result.Succeeded)
                 {
+
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToPage("Dashboard", "Admin");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
             }
