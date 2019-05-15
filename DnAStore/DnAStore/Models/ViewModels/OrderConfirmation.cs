@@ -9,5 +9,6 @@ namespace DnAStore.Models.ViewModels
     {
         public ShippingDetails ShippingDetails { get; set; }
         public Basket Basket { get; set; }
+		public bool TransactionFailure { get; set; }
     }
 }

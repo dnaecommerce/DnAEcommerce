@@ -80,14 +80,17 @@ namespace DnAStore.Controllers
 
                     await _userManager.AddToRoleAsync(user, Roles.Member);
 
-                    if (!_environment.IsDevelopment()) await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+					// Send welcome email only if not in dev environment (to avoid excessive emailing)
+					if (!_environment.IsDevelopment())
+					{
+						await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+					}
 
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
-
-
 			}
+
 			return View(rvm);
 		}
 
@@ -117,8 +120,10 @@ namespace DnAStore.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
+
             ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-            return View(lvm);
+
+			return View(lvm);
         }
 
         /// <summary>
