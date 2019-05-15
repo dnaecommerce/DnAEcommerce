@@ -20,8 +20,6 @@ namespace DnAStore.Models
 			Configuration = configuration;
 		}
 
-
-		//TODO Invoke this method in Receipt action in CheckoutController
 		public transactionResponse Run(Basket basket, ShippingDetails sdvm)
 		{
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;

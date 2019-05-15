@@ -19,7 +19,7 @@ namespace DnAStore.Models
         public decimal Subtotal { get; set; }
         public decimal FinalTotal { get; set; }
         public string TransactionNumber { get; set; }
-		//TODO Add in property for order date/time (capture this upon order placement)
+		public DateTime OrderDateTime { get; set; }
 
         // Nav property
         public List<OrderItem> OrderItems { get; set; }

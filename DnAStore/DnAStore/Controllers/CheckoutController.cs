@@ -61,19 +61,15 @@ namespace DnAStore.Controllers
             var result = await _basketManager.FindBasketByUserEager(sdvm.Username);
 			if (result != null)
 			{
-				// Capture date and time order was placed
-				DateTime orderDateTime = DateTime.Now;
-
-				//TODO Use orderDateTime to set date/time property of Order object
-				// OR, could capture order date/time inside SendReceiptEmail method
-				// NOTE: This latter option for setting date/time property of order would require us to query the DB again
-
 				// Run() method on payment class
 				Payment payment = new Payment(_configuration);
 				var response = payment.Run(result, sdvm);
 
 				if (response != null)
 				{
+					// Capture date and time order was placed
+					DateTime orderDateTime = DateTime.Now;
+
 					// Creates the order from the Basket information and saves it in the database.
 					Order order = new Order
 					{
@@ -82,6 +78,7 @@ namespace DnAStore.Controllers
 						Subtotal = result.Subtotal,
 						FinalTotal = result.Subtotal,
 						OrderItems = new List<OrderItem>(),
+						OrderDateTime = orderDateTime,
 						FirstName = sdvm.FirstName,
 						LastName = sdvm.LastName,
 						Address = sdvm.Address,
