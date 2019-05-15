@@ -73,7 +73,7 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (rvm.Email.ToLower() == "amanda@codefellows.com")
+                    if (rvm.Email.ToLower() == "amanda@codefellows.com" || rvm.Email.ToLower() == /* TA email */)
                     {
                         await _userManager.AddToRoleAsync(user, Roles.Admin);
                     }
