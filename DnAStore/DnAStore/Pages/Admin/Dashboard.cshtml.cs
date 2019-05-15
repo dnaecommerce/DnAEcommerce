@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace DnAStore.Pages.Admin
 {
 	[Authorize(Roles = "Admin")]
-    public class DashboardModel : PageModel
+	public class DashboardModel : PageModel
     {
 
 		private IOrderManager _orders;

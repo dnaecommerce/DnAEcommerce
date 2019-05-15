@@ -25,30 +25,29 @@ namespace DnAStore.Models.Services
 
         public async Task<Order> GetOrderByIDEager(int id)
         {
-            var result = await _context.Orders.Where(order => order.ID == id)
+            return await _context.Orders.Where(order => order.ID == id)
 											  .Include(order => order.OrderItems)
 											  .ThenInclude(orderItem => orderItem.Product)
 											  .FirstOrDefaultAsync();
-
-			return result;
         }
 
         public async Task<Order> GetOrderByIDLazy(int id)
         {
-            var result = await _context.Orders.Where(order => order.ID == id)
+            return await _context.Orders.Where(order => order.ID == id)
 											  .FirstOrDefaultAsync();
-
-			return result;
         }
+
+		public List<Order> GetAllOrders()
+		{
+			return _context.Orders.ToList();
+		}
 
         public async Task<List<Order>> GetAllUserOrdersEager(string username)
         {
-            var result = await _context.Orders.Where(order => order.UserName == username)
+            return await _context.Orders.Where(order => order.UserName == username)
 											  .Include(order => order.OrderItems)
 											  .ThenInclude(orderItem => orderItem.Product)
 											  .ToListAsync();
-
-			return result;
         }
 
         public async Task UpdateOrder(Order order)
