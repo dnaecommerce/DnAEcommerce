@@ -93,7 +93,6 @@ namespace DnAStore.Controllers
 
                     if (await _userManager.IsInRoleAsync(user, Roles.Admin))
                     {
-						//return RedirectToPage("/Dashboard", "Admin");
 						return LocalRedirect("~/Admin/Dashboard");
 					}
 
@@ -131,7 +130,6 @@ namespace DnAStore.Controllers
 
                     if (await _userManager.IsInRoleAsync(await _userManager.FindByEmailAsync(lvm.Email), Roles.Admin))
                     {
-                        //return RedirectToPage("/Dashboard", "Admin");
 						return LocalRedirect("~/Admin/Dashboard");
                     }
 
