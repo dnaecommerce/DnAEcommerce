@@ -9,7 +9,7 @@ namespace XUnitTest_DnAStore
     public class UnitTests_Basket
     {
         [Fact]
-        public static void TestGetID()
+        public static void TestGetSetID()
         {
             Basket basket = new Basket();
             Assert.Equal(0, basket.ID);
@@ -27,7 +27,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetSubtotal()
+        public static void TestGetSetSubtotal()
         {
             Basket basket = new Basket();
             Assert.Equal(0, basket.Subtotal);
@@ -36,7 +36,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetBasketItems()
+        public static void TestGetSetBasketItems()
         {
             Basket basket = new Basket();
             Assert.Null(basket.BasketItems);

@@ -7,7 +7,7 @@ namespace XUnitTest_DnAStore
     public class UnitTests_Order
     {
         [Fact]
-        public static void TestGetID()
+        public static void TestGetSetID()
         {
             Order order = new Order();
             Assert.Equal(0, order.ID);
@@ -25,7 +25,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetFirstName()
+        public static void TestGetSetFirstName()
         {
             Order order = new Order();
             Assert.Null(order.FirstName);
@@ -34,7 +34,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetLastName()
+        public static void TestGetSetLastName()
         {
             Order order = new Order();
             Assert.Null(order.LastName);
@@ -43,7 +43,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetAddress()
+        public static void TestGetSetAddress()
         {
             Order order = new Order();
             Assert.Null(order.Address);
@@ -52,7 +52,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetCity()
+        public static void TestGetSetCity()
         {
             Order order = new Order();
             Assert.Null(order.City);
@@ -61,7 +61,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetState()
+        public static void TestGetSetState()
         {
             Order order = new Order();
             Assert.Null(order.State);
@@ -70,7 +70,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetPostalCode()
+        public static void TestGetSetPostalCode()
         {
             Order order = new Order();
             Assert.Null(order.PostalCode);
@@ -79,7 +79,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetPhoneNumber()
+        public static void TestGetSetPhoneNumber()
         {
             Order order = new Order();
             Assert.Null(order.PhoneNumber);
@@ -88,7 +88,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetSubtotal()
+        public static void TestGetSetSubtotal()
         {
             Order order = new Order();
             Assert.Equal(0, order.Subtotal);
@@ -97,7 +97,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetFinalTotal()
+        public static void TestGetSetFinalTotal()
         {
             Order order = new Order();
             Assert.Equal(0, order.FinalTotal);
@@ -106,7 +106,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetTransactionNumber()
+        public static void TestGetSetTransactionNumber()
         {
             Order order = new Order();
             Assert.Null(order.TransactionNumber);
@@ -115,7 +115,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetOrderDateTime()
+        public static void TestGetSetOrderDateTime()
         {
             Order order = new Order();
             System.DateTime date = new System.DateTime();
@@ -124,7 +124,7 @@ namespace XUnitTest_DnAStore
         }
 
         [Fact]
-        public static void TestGetOrderItems()
+        public static void TestGetSetOrderItems()
         {
             Order order = new Order();
             Assert.Null(order.OrderItems);
