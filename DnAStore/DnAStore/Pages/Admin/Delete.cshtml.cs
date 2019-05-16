@@ -64,7 +64,7 @@ namespace DnAStore.Pages.Admin
 
             if (image != null) await image.DeleteAsync();
 
-            if (Product != null && image.IsDeleted)
+            if (Product != null)
             {
                 await _productManager.DeleteProduct(Product);
             }
