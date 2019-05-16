@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DnAStore.Pages.Admin
 {
-	[Authorize(Roles = "Admin")]
+	[Authorize(Roles = Roles.Admin)]
 	public class DashboardModel : PageModel
     {
 
