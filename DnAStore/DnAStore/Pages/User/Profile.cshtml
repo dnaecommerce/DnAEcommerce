@@ -10,7 +10,7 @@
     Layout = "_Layout";
 }
 
-@{ 
+@{
     string nameOfCurrentUser = User.Identity.Name;
     var user = await UserMgr.FindByNameAsync(nameOfCurrentUser);
 }
@@ -26,53 +26,37 @@
 
     <h1>Welcome, @user.FirstName!</h1>
 
-    <div>
-        <h4>User Details</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                First Name
-            </dt>
-            <dd class="col-sm-10">
-                <form action="/" method="post">
-
-                </form>
-                @user.FirstName
-            </dd>
-            <dt class="col-sm-2">
-                Last Name
-            </dt>
-            <dd class="col-sm-10">
-                @user.LastName
-            </dd>
-            @*<dt class="col-sm-2">
-                Username
-            </dt>
-            <dd class="col-sm-10">
-                @user.UserName
-            </dd>*@
-            <dt class="col-sm-2">
-                Email Address
-            </dt>
-            <dd class="col-sm-10">
-                @user.Email
-            </dd>
-            @*<dt class="col-sm-2">
-                <p>Last 5 Orders: </p>
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var order in Orders)
-                {
-                    <h4>Product: </h4>
-                    <p>Quantity: </p>
-                    <p>Total Price: $ </p>
-                }
-            </dd>*@
-        </dl>
+    <h4>User Details</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@user.Id" />
+                <div class="form-group">
+                    <label asp-for="@user.FirstName" class="control-label"></label>
+                    <input asp-for="@user.FirstName" class="form-control" />
+                    <span asp-validation-for="@user.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@user.LastName" class="control-label"></label>
+                    <input asp-for="@user.LastName" class="form-control" />
+                    <span asp-validation-for="@user.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@user.Email" class="control-label"></label>
+                    <input asp-for="@user.Email" class="form-control" readonly />
+                    <span asp-validation-for="@user.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
+
     <div>
-        <a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
 
 </body>
