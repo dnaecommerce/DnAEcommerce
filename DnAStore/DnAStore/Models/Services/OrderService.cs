@@ -61,7 +61,8 @@ namespace DnAStore.Models.Services
             return await _context.Orders.Where(order => order.UserName == username)
                                               .Include(order => order.OrderItems)
                                               .ThenInclude(orderItem => orderItem.Product)
-                                              .TakeLast(5).ToListAsync();
+                                              .OrderByDescending(order => order.ID)
+                                              .Take(5).ToListAsync();
         }
     }
 }
