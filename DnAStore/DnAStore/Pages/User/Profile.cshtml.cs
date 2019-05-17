@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DnAStore.Models;
+using DnAStore.Models.Interfaces;
 
 namespace DnAStore.Pages.User
 {
@@ -16,13 +17,18 @@ namespace DnAStore.Pages.User
 
 		private UserManager<Models.User> _userManager;
 
+        private IOrderManager _orderManager;
+
 		[BindProperty]
-		public Models.User AppUser { get; set; } 
+		public Models.User AppUser { get; set; }
+        
+        public List<Order> Orders { get; set; }
 
 
-		public ProfileModel(UserManager<Models.User> userManager)
+		public ProfileModel(UserManager<Models.User> userManager, IOrderManager orderManager)
 		{
 			_userManager = userManager;
+            _orderManager = orderManager;
 		}
 
 
@@ -30,6 +36,7 @@ namespace DnAStore.Pages.User
         {
 			string nameOfCurrentUser = User.Identity.Name;
 			AppUser = await _userManager.FindByNameAsync(nameOfCurrentUser);
+            Orders = await _orderManager.GetUserLastFiveEager(nameOfCurrentUser);
 		}
 
 		public async Task<IActionResult> OnPostAsync()

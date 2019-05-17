@@ -17,6 +17,8 @@ namespace DnAStore.Models.Interfaces
 
 		Task<List<Order>> GetAllUserOrdersEager(string username);
 
+        Task<List<Order>> GetUserLastFiveEager(string username);
+
         Task UpdateOrder(Order order);
     }
 }

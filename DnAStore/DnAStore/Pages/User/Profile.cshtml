@@ -59,5 +59,31 @@
         <a asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
 
+
+    <h2>Last Five Orders</h2>
+    @foreach (var order in Model.Orders)
+    {
+        <p>Order date and time: @order.OrderDateTime</p>
+        <p>Total order price: $@order.FinalTotal</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oi in order.OrderItems)
+                {
+                    <tr>
+                        <td>@oi.Product.Name</td>
+                        <td>@oi.Quantity</td>
+                        <td>@oi.Product.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </body>
 </html>

@@ -55,5 +55,14 @@ namespace DnAStore.Models.Services
             _context.Update(order);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Order>> GetUserLastFiveEager(string username)
+        {
+            return await _context.Orders.Where(order => order.UserName == username)
+                                              .Include(order => order.OrderItems)
+                                              .ThenInclude(orderItem => orderItem.Product)
+                                              .OrderByDescending(order => order.ID)
+                                              .Take(5).ToListAsync();
+        }
     }
 }
