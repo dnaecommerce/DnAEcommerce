@@ -126,8 +126,17 @@ property for tracking the final total price of the order.
 | --- | --- | --- |
 | ID  | int | YES |
 | UserName | string | YES |
+| FirstName | string | YES |
+| LastName | string |  YES |
+| Address | string | YES |
+| City | string | YES |
+| State | string | YES |
+| PostalCode | string | YES |
+| PhoneNumber | string | YES |
 | Subtotal | decimal | YES |
 | FinalTotal | decimal | YES |
+|  TransactionNumber | string | YES |
+| OrderDateTime| DateTime | YES |
 | --- | --- | --- |
 | List\<OrderItem\> | OrderItems | YES | 
 
@@ -149,3 +158,4 @@ property for tracking the final total price of the order.
 
 0.1.0: *Published site on master branch* - 2019-04-30
 0.2.0: *Site updated with order checkout functionality, SendGrid email service integration, and styling across site* - 2019-05-08
+0.3.0: *Added integration with Authorize.Net for payment processing and Azure Blob Storage for serving product images; built out admin and user profile pages with select CRUD operations* - 2019-05-16
