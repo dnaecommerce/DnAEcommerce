@@ -13,7 +13,11 @@ namespace DnAStore.Models.Interfaces
 
         Task<Order> GetOrderByIDLazy(int id);
 
-        Task<List<Order>> GetAllUserOrdersEager(string username);
+		List<Order> GetAllOrders();
+
+		Task<List<Order>> GetAllUserOrdersEager(string username);
+
+        Task<List<Order>> GetUserLastFiveEager(string username);
 
         Task UpdateOrder(Order order);
     }

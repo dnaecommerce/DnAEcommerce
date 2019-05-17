@@ -5,9 +5,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using DnAStore.Models;
 using DnAStore.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace DnAStore.Controllers
 {
@@ -16,12 +18,17 @@ namespace DnAStore.Controllers
 		private UserManager<User> _userManager;
 		private SignInManager<User> _signInManager;
         private IEmailSender _emailSender;
+        private IHostingEnvironment _environment;
+		public IConfiguration Configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
+
+		public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender, IHostingEnvironment environment, IConfiguration configuration)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
             _emailSender = emailSender;
+            _environment = environment;
+			Configuration = configuration;
 		}
 
         /// <summary>
@@ -70,21 +77,30 @@ namespace DnAStore.Controllers
 					// Sign user in
 					await _signInManager.SignInAsync(user, isPersistent: false);
 
-                    if (rvm.Email.ToLower() == "amanda@codefellows.com")
-                    {
+                    if (rvm.Email.ToLower() == Configuration["InstructorEmailAddress"] || rvm.Email.ToLower() == Configuration["TAEmailAddress"] || rvm.Email.ToLower() == Configuration["Developer1Email"])
+
+					{
                         await _userManager.AddToRoleAsync(user, Roles.Admin);
                     }
 
                     await _userManager.AddToRoleAsync(user, Roles.Member);
 
-                    await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+					// Send welcome email only if not in dev environment (to avoid excessive emailing)
+					if (!_environment.IsDevelopment())
+					{
+						await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+					}
+
+                    if (await _userManager.IsInRoleAsync(user, Roles.Admin))
+                    {
+						return LocalRedirect("~/Admin/Dashboard");
+					}
 
 					// Redirect to Index action on Home page
 					return RedirectToAction("Index", "Home");
 				}
-
-
 			}
+
 			return View(rvm);
 		}
 
@@ -111,11 +127,19 @@ namespace DnAStore.Controllers
                 var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
                 if (result.Succeeded)
                 {
+
+                    if (await _userManager.IsInRoleAsync(await _userManager.FindByEmailAsync(lvm.Email), Roles.Admin))
+                    {
+						return LocalRedirect("~/Admin/Dashboard");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
             }
+
             ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-            return View(lvm);
+
+			return View(lvm);
         }
 
         /// <summary>

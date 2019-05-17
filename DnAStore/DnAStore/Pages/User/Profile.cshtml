@@ -1,0 +1,122 @@
+﻿@page
+@model DnAStore.Pages.User.ProfileModel
+
+@using DnAStore.Models
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> UserMgr
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_Layout";
+}
+
+@{
+    string nameOfCurrentUser = User.Identity.Name;
+    var user = await UserMgr.FindByNameAsync(nameOfCurrentUser);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Profile</title>
+</head>
+<body>
+
+    <h2>Welcome, @user.FirstName!</h2>
+
+    <h4>User Details</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="AppUser.Id" />
+                <div class="form-group">
+                    <label asp-for="AppUser.FirstName" class="control-label"></label>
+                    <input asp-for="AppUser.FirstName" class="form-control" />
+                    <span asp-validation-for="AppUser.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AppUser.LastName" class="control-label"></label>
+                    <input asp-for="AppUser.LastName" class="form-control" />
+                    <span asp-validation-for="AppUser.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AppUser.Email" class="control-label"></label>
+                    <input asp-for="AppUser.Email" class="form-control" readonly />
+                    <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.OnPasswordFailure)
+    {
+        <p>Something went wrong. New and confirmed password must match.</p>
+    }
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-page-handler="ChangePassword" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="AppUser.Id" />
+                <div class="form-group">
+                    <label asp-for="OldPass" class="control-label">Current Password</label>
+                    <input asp-for="OldPass" class="form-control" type="password" />
+                    <span asp-validation-for="OldPass" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewPass" class="control-label">New Password</label>
+                    <input asp-for="NewPass" class="form-control" type="password" />
+                    <span asp-validation-for="NewPass" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPass" class="control-label">Confirm Password</label>
+                    <input asp-for="ConfirmPass" class="form-control" type="password" />
+                    <span asp-validation-for="ConfirmPass" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Change Password" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-controller="Home" asp-action="Index">Back to Home</a>
+    </div>
+
+
+    <h2>Last Five Orders</h2>
+
+    @foreach (var order in Model.Orders)
+    {
+        <p>Order date and time: @order.OrderDateTime</p>
+        <p>Total order price: $@order.FinalTotal</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oi in order.OrderItems)
+                {
+                    <tr>
+                        <td>@oi.Product.Name</td>
+                        <td>@oi.Quantity</td>
+                        <td>@oi.Product.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</body>
+</html>

@@ -12,7 +12,7 @@
 @if (Model.BasketItems.Count > 0)
 {
     <div>
-        <form method="post" asp-controller="Checkout" asp-action="Receipt">
+        <form method="post" asp-controller="Checkout" asp-action="ShippingDetails">
             <button type="submit" name="username" value="@Model.UserName">Checkout</button>
         </form>
     </div>
@@ -55,7 +55,7 @@
                         $@(item.Product.Price * item.Quantity)
                     </td>
                     <td>
-                        <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.ID">
+                        <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.Product.ID">
                             <button type="submit">Details</button>
                         </form>
 

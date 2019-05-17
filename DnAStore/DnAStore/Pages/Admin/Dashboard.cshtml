@@ -1,0 +1,36 @@
+﻿@page
+@model DnAStore.Pages.Admin.DashboardModel
+
+@using DnAStore.Models.Interfaces
+@inject IOrderManager Orders
+
+@{ 
+    var orders = Orders.GetAllOrders();
+    var lastTenOrders = orders.OrderByDescending(order => order.ID)
+                              .Take(10);
+}
+
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+</head>
+<body>
+
+    <h2>Orders</h2>
+    @foreach (var order in lastTenOrders)
+    {
+        <h3>Customer: @order.LastName, @order.FirstName</h3>
+        <p>Order date and time: @order.OrderDateTime</p>
+        <p>Total order price: $@order.FinalTotal</p>
+    }
+
+</body>
+</html>

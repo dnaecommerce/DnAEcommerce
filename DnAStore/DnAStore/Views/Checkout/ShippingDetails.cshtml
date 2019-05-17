@@ -1,0 +1,117 @@
+﻿@model DnAStore.Models.ViewModels.OrderConfirmation
+@{
+    ViewData["Title"] = "Shipping Details";
+    Layout = "_Layout";
+}
+
+<hr />
+<p>
+    <a href="/Shop/Shop">Back to Shop</a>
+</p>
+
+<div>
+    <h4>Shipping Details</h4>
+
+    @if (Model.TransactionFailure)
+    {
+        <p>Something went wrong. Please verify that your information is correct.</p>
+    }
+
+    <form method="post" asp-controller="Checkout" asp-action="Receipt">
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.FirstName"></label>
+            <input asp-for="ShippingDetails.FirstName" required />
+            <span asp-validation-for="ShippingDetails.FirstName" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.LastName"></label>
+            <input asp-for="ShippingDetails.LastName" required />
+            <span asp-validation-for="ShippingDetails.LastName" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.Address"></label>
+            <input asp-for="ShippingDetails.Address" required />
+            <span asp-validation-for="ShippingDetails.Address" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.City"></label>
+            <input asp-for="ShippingDetails.City" required />
+            <span asp-validation-for="ShippingDetails.City" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.State"></label>
+            <input asp-for="ShippingDetails.State" required />
+            <span asp-validation-for="ShippingDetails.State" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.PostalCode"></label>
+            <input asp-for="ShippingDetails.PostalCode" required />
+            <span asp-validation-for="ShippingDetails.PostalCode" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.PhoneNumber"></label>
+            <input asp-for="ShippingDetails.PhoneNumber" required />
+            <span asp-validation-for="ShippingDetails.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="input-block-container">
+            <label asp-for="ShippingDetails.Card"></label>
+            <select asp-for="ShippingDetails.Card">
+                <option value="0">American Express ***********0002</option>
+                <option value="1">Discover ************0012</option>
+                <option value="2">Visa *********0027</option>
+                <option value="3">Mastercard ************0015</option>
+            </select>
+            <span asp-validation-for="ShippingDetails.Card" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="ShippingDetails.Username" value="@Model.Basket.UserName" />
+        <button type="submit">Confirm Order</button>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Neighborhood Name
+            </th>
+            <th>
+                Lot Price
+            </th>
+            <th>
+                Number of Lots
+            </th>
+            <th>
+                Item Price Subtotals
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Basket.BasketItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    $@(item.Product.Price * item.Quantity)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                Subtotal: $@Model.Basket.Subtotal
+            </td>
+        </tr>
+    </tfoot>
+</table>
