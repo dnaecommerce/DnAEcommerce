@@ -11,6 +11,7 @@ using DnAStore.Models.Interfaces;
 using Microsoft.Extensions.Configuration;
 using DnAStore.Models.Utilities;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {

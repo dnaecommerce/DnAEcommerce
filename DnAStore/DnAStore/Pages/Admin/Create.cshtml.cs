@@ -13,6 +13,7 @@ using DnAStore.Models;
 using DnAStore.Models.Interfaces;
 using DnAStore.Models.Utilities;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {

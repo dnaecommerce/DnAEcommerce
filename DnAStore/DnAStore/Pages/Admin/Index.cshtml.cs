@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DnAStore.Data;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {
