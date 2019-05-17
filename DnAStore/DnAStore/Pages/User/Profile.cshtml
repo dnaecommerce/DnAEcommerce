@@ -32,21 +32,21 @@
         <div class="col-md-4">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="@user.Id" />
+                <input type="hidden" asp-for="AppUser.Id" />
                 <div class="form-group">
-                    <label asp-for="@user.FirstName" class="control-label"></label>
-                    <input asp-for="@user.FirstName" class="form-control" />
-                    <span asp-validation-for="@user.FirstName" class="text-danger"></span>
+                    <label asp-for="AppUser.FirstName" class="control-label"></label>
+                    <input asp-for="AppUser.FirstName" class="form-control" />
+                    <span asp-validation-for="AppUser.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@user.LastName" class="control-label"></label>
-                    <input asp-for="@user.LastName" class="form-control" />
-                    <span asp-validation-for="@user.LastName" class="text-danger"></span>
+                    <label asp-for="AppUser.LastName" class="control-label"></label>
+                    <input asp-for="AppUser.LastName" class="form-control" />
+                    <span asp-validation-for="AppUser.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@user.Email" class="control-label"></label>
-                    <input asp-for="@user.Email" class="form-control" readonly />
-                    <span asp-validation-for="@user.Email" class="text-danger"></span>
+                    <label asp-for="AppUser.Email" class="control-label"></label>
+                    <input asp-for="AppUser.Email" class="form-control" readonly />
+                    <span asp-validation-for="AppUser.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save Changes" class="btn btn-primary" />
