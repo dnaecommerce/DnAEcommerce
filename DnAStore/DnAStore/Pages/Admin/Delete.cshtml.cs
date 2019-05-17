@@ -14,6 +14,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class DeleteModel : PageModel
     {
         private readonly IProductManager _productManager;

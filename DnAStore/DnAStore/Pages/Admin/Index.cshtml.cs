@@ -11,6 +11,7 @@ using DnAStore.Models.Interfaces;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class IndexModel : PageModel
     {
         private readonly IProductManager _productManager;

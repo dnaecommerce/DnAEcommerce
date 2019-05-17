@@ -16,6 +16,7 @@ using System.IO;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class CreateModel : PageModel
     {
         private readonly IProductManager _productManager;

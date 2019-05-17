@@ -12,6 +12,7 @@ using DnAStore.Models.Interfaces;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class EditModel : PageModel
     {
         private readonly IProductManager _productManager;
