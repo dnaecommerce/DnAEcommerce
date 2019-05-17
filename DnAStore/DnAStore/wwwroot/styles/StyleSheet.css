@@ -11,7 +11,8 @@ main {
   background: rgba(255, 255, 240, 0.75);
   padding: 2vw;
   border: 0.5vw solid steelblue;
-  border-radius: 1.5vw; }
+  border-radius: 1.5vw;
+  color: black; }
 
 form {
   vertical-align: middle; }

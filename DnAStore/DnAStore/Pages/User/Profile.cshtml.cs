@@ -21,16 +21,24 @@ namespace DnAStore.Pages.User
 
 		[BindProperty]
 		public Models.User AppUser { get; set; }
-        
+
+		[BindProperty]
+		public string oldPass { get; set; }
+
+		[BindProperty]
+		public string newPass { get; set; }
+
+		[BindProperty]
+		public string confirmPass { get; set; }
+
         public List<Order> Orders { get; set; }
 
-
+		// Constructor
 		public ProfileModel(UserManager<Models.User> userManager, IOrderManager orderManager)
 		{
 			_userManager = userManager;
             _orderManager = orderManager;
 		}
-
 
         public async Task OnGet()
         {
@@ -54,7 +62,20 @@ namespace DnAStore.Pages.User
 
 			await _userManager.UpdateAsync(user);
 
-			return Page();
+			return RedirectToPage();
 		}
-    }
+
+		public async Task<IActionResult> OnPostChangePassword()
+		{
+			string nameOfCurrentUser = User.Identity.Name;
+			AppUser = await _userManager.FindByNameAsync(nameOfCurrentUser);
+
+			if (newPass.Equals(confirmPass))
+			{
+				await _userManager.ChangePasswordAsync(AppUser, oldPass, newPass);
+			}
+
+			return RedirectToPage();
+		}
+	}
 }
