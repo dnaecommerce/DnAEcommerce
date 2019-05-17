@@ -19,17 +19,19 @@ namespace DnAStore.Pages.User
 
         private IOrderManager _orderManager;
 
+		public bool OnPasswordFailure = false;
+
 		[BindProperty]
 		public Models.User AppUser { get; set; }
 
 		[BindProperty]
-		public string oldPass { get; set; }
+		public string OldPass { get; set; }
 
 		[BindProperty]
-		public string newPass { get; set; }
+		public string NewPass { get; set; }
 
 		[BindProperty]
-		public string confirmPass { get; set; }
+		public string ConfirmPass { get; set; }
 
         public List<Order> Orders { get; set; }
 
@@ -70,12 +72,18 @@ namespace DnAStore.Pages.User
 			string nameOfCurrentUser = User.Identity.Name;
 			AppUser = await _userManager.FindByNameAsync(nameOfCurrentUser);
 
-			if (newPass.Equals(confirmPass))
+			if (NewPass.Equals(ConfirmPass))
 			{
-				await _userManager.ChangePasswordAsync(AppUser, oldPass, newPass);
+				await _userManager.ChangePasswordAsync(AppUser, OldPass, NewPass);
+				return RedirectToPage();
+			}
+			else
+			{
+				OnPasswordFailure = true;
 			}
 
-			return RedirectToPage();
+			await OnGet();
+			return Page();
 		}
 	}
 }

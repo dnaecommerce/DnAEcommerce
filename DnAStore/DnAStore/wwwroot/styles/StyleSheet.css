@@ -1,9 +1,9 @@
 ﻿body {
   background: url(../assets/images/sitebackground.jpg) no-repeat center center fixed;
-  background-size: cover;
-  color: white; }
+  background-size: cover; }
   body h1 {
-    text-align: center; }
+    text-align: center;
+    color: white; }
 
 main {
   width: 90%;

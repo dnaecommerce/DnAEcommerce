@@ -24,7 +24,7 @@
 </head>
 <body>
 
-    <h1>Welcome, @user.FirstName!</h1>
+    <h2>Welcome, @user.FirstName!</h2>
 
     <h4>User Details</h4>
     <hr />
@@ -55,25 +55,30 @@
         </div>
     </div>
 
+    @if (Model.OnPasswordFailure)
+    {
+        <p>Something went wrong. New and confirmed password must match.</p>
+    }
+
     <div class="row">
         <div class="col-md-4">
             <form asp-page-handler="ChangePassword" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="AppUser.Id" />
                 <div class="form-group">
-                    <label asp-for="oldPass" class="control-label">Current Password</label>
-                    <input asp-for="oldPass" class="form-control" type="password" />
-                    <span asp-validation-for="oldPass" class="text-danger"></span>
+                    <label asp-for="OldPass" class="control-label">Current Password</label>
+                    <input asp-for="OldPass" class="form-control" type="password" />
+                    <span asp-validation-for="OldPass" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="newPass" class="control-label"></label>
-                    <input asp-for="newPass" class="form-control" type="password" />
-                    <span asp-validation-for="newPass" class="text-danger"></span>
+                    <label asp-for="NewPass" class="control-label">New Password</label>
+                    <input asp-for="NewPass" class="form-control" type="password" />
+                    <span asp-validation-for="NewPass" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="confirmPass" class="control-label"></label>
-                    <input asp-for="confirmPass" class="form-control" type="password" />
-                    <span asp-validation-for="confirmPass" class="text-danger"></span>
+                    <label asp-for="ConfirmPass" class="control-label">Confirm Password</label>
+                    <input asp-for="ConfirmPass" class="form-control" type="password" />
+                    <span asp-validation-for="ConfirmPass" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Change Password" class="btn btn-primary" />
