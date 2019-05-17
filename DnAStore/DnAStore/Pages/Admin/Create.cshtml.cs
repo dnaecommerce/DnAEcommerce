@@ -13,9 +13,11 @@ using DnAStore.Models;
 using DnAStore.Models.Interfaces;
 using DnAStore.Models.Utilities;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class CreateModel : PageModel
     {
         private readonly IProductManager _productManager;
