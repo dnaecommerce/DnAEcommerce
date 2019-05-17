@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DnAStore.Data;
 using DnAStore.Models;
 using DnAStore.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class IndexModel : PageModel
     {
         private readonly IProductManager _productManager;

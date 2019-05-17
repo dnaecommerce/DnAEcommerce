@@ -11,9 +11,11 @@ using DnAStore.Models.Interfaces;
 using Microsoft.Extensions.Configuration;
 using DnAStore.Models.Utilities;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DnAStore.Pages.Admin
 {
+    [Authorize(Roles = Roles.Admin)]
     public class DeleteModel : PageModel
     {
         private readonly IProductManager _productManager;
