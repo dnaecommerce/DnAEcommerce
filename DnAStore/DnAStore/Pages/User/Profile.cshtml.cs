@@ -19,18 +19,28 @@ namespace DnAStore.Pages.User
 
         private IOrderManager _orderManager;
 
+		public bool OnPasswordFailure = false;
+
 		[BindProperty]
 		public Models.User AppUser { get; set; }
-        
+
+		[BindProperty]
+		public string OldPass { get; set; }
+
+		[BindProperty]
+		public string NewPass { get; set; }
+
+		[BindProperty]
+		public string ConfirmPass { get; set; }
+
         public List<Order> Orders { get; set; }
 
-
+		// Constructor
 		public ProfileModel(UserManager<Models.User> userManager, IOrderManager orderManager)
 		{
 			_userManager = userManager;
             _orderManager = orderManager;
 		}
-
 
         public async Task OnGet()
         {
@@ -54,7 +64,26 @@ namespace DnAStore.Pages.User
 
 			await _userManager.UpdateAsync(user);
 
+			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnPostChangePassword()
+		{
+			string nameOfCurrentUser = User.Identity.Name;
+			AppUser = await _userManager.FindByNameAsync(nameOfCurrentUser);
+
+			if (NewPass.Equals(ConfirmPass))
+			{
+				await _userManager.ChangePasswordAsync(AppUser, OldPass, NewPass);
+				return RedirectToPage();
+			}
+			else
+			{
+				OnPasswordFailure = true;
+			}
+
+			await OnGet();
 			return Page();
 		}
-    }
+	}
 }

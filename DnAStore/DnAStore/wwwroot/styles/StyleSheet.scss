@@ -1,10 +1,10 @@
 ﻿body {
     background: url(../assets/images/sitebackground.jpg) no-repeat center center fixed;
     background-size: cover;
-    color: white;
 
     h1 {
         text-align: center;
+        color: white;
     }
 }
 
@@ -15,6 +15,7 @@ main {
     padding: 2vw;
     border: 0.5vw solid steelblue;
     border-radius: 1.5vw;
+    color: black;
 }
 
 form {
