@@ -4,6 +4,9 @@
     Layout = "_Layout";
 }
 
+<h2>Product Details</h2>
+<br />
+
 <table class="table">
     <thead>
         <tr>
@@ -15,9 +18,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(p => p.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(p => p.Image)
             </th>
             <th></th>
         </tr>
@@ -37,12 +37,20 @@
                 <form method="post" asp-controller="Basket" asp-action="AddToBasket">
                     <input type="hidden" name="username" value="@User.Identity.Name" readonly />
                     <input type="hidden" name="productId" value="@Model.ID" readonly />
-                    <button type="submit" value="AddToBasket" class="btn btn-danger">Add to Basket</button>
-                    <a href="/Shop/Shop">Back to Shopping</a>
+                    <button type="submit" value="AddToBasket" class="btn">Add to Basket</button>
+                    <a href="/Shop/Shop" class="btn">Back to Shop</a>
                 </form>
             </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="680" class="ctr-img" />
+            </td>
+            <td></td>
         </tr>
     </tbody>
 </table>
 
-<img src="@Html.DisplayFor(p => p.Image)" title="@Html.DisplayFor(p => p.Name)" width="680" />
+

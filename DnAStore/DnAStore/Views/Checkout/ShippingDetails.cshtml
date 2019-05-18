@@ -64,9 +64,12 @@
             <span asp-validation-for="ShippingDetails.Card" class="text-danger"></span>
         </div>
         <input type="hidden" asp-for="ShippingDetails.Username" value="@Model.Basket.UserName" />
-        <button type="submit">Confirm Order</button>
+        <button type="submit" class="btn">Confirm Order</button>
     </form>
 </div>
+
+<br />
+<h4>Order</h4>
 
 <table class="table">
     <thead>
