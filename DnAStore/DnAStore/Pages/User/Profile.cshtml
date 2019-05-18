@@ -6,7 +6,7 @@
 @inject UserManager<User> UserMgr
 
 @{
-    ViewData["Title"] = "My Profile";
+    ViewData["Title"] = "Profile";
     Layout = "_Layout";
 }
 
@@ -49,7 +49,7 @@
                     <span asp-validation-for="AppUser.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                    <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -81,27 +81,28 @@
                     <span asp-validation-for="ConfirmPass" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Change Password" class="btn btn-primary" />
+                    <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </form>
         </div>
     </div>
 
     <div>
-        <a asp-controller="Home" asp-action="Index">Back to Home</a>
+        <a asp-controller="Home" asp-action="Index">Home</a>
     </div>
 
 
-    <h2>Last Five Orders</h2>
-
+    <h3>Recent Orders</h3>
+    <hr />
     @foreach (var order in Model.Orders)
     {
-        <p>Order date and time: @order.OrderDateTime</p>
-        <p>Total order price: $@order.FinalTotal</p>
+        <h4></h4>
+        <p>@order.OrderDateTime</p>
+        <p>Order total: $@order.FinalTotal</p>
         <table>
             <thead>
                 <tr>
-                    <th>Product Name</th>
+                    <th>Product</th>
                     <th>Quantity</th>
                     <th>Price</th>
                 </tr>

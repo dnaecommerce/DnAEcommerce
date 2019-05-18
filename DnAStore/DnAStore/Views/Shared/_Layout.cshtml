@@ -16,15 +16,14 @@
     <link rel="stylesheet" href="~/styles/StyleSheet.css">
 </head>
 <body>
-    <h1>@ViewData["Title"]</h1>
-    <!--Navbar-->
-    <nav>
 
-        
-    </nav>
-    <!--/.Navbar-->
+    <h1>@ViewData["Title"]</h1>
+
     <nav>
-        <a href="/">Home</a>
+        @if (ViewData["Title"] != null && (string)ViewData["Title"] != "Home")
+        {
+            <a href="/">Home</a>
+        }
         <a href="/Shop/Shop">Shop</a>
         <a href="/SpaceTraveler/SpaceTravelers">Astronauts</a>
 
@@ -48,7 +47,7 @@
         {
             @if (ViewData["Title"] != null && (string)ViewData["Title"] != "View Basket" && (string)ViewData["Title"] != "Receipt" && SignInManager.IsSignedIn(User))
             {
-                <a asp-page="/User/Profile">My Profile</a>
+                <a asp-page="/User/Profile">Profile</a>
                 <a href="/Basket/ViewBasket" class="basket-button">Basket</a>
                 <!-- Collapse button -->
                 <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
@@ -70,8 +69,6 @@
             }
             <a href="/Account/Logout">Logout</a>
         }
-
-
     </nav>
     <main>
         @if (ViewData["Title"] != null && (string)ViewData["Title"] != "View Basket" && (string)ViewData["Title"] != "Receipt" && SignInManager.IsSignedIn(User))
