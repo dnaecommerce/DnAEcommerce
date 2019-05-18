@@ -16,5 +16,7 @@ namespace DnAStore.Models.ViewModels
         [DataType(DataType.Password)]
         [StringLength(16, ErrorMessage = "The {0} must be between {2} and {1} characters long", MinimumLength = 6)]
         public string Password { get; set; }
+
+        public string ReturnURL { get; set; }
     }
 }
