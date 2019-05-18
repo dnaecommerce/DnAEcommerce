@@ -44,13 +44,13 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @item.Description.Substring(0, 20)...
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Image)
+                    <img src=@item.Image width=50 />
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
                 </td>
             </tr>
