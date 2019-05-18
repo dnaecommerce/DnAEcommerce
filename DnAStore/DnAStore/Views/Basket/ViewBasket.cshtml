@@ -1,22 +1,15 @@
 ﻿@model DnAStore.Models.Basket
 @{
-    ViewData["Title"] = "View Basket";
+    ViewData["Title"] = "Basket";
     Layout = "_Layout";
 }
 
 <hr />
-<p>
-    <a href="/Shop/Shop">Back to Shop</a>
-</p>
+
+<h2>Basket</h2>
 
 @if (Model.BasketItems.Count > 0)
 {
-    <div>
-        <form method="post" asp-controller="Checkout" asp-action="ShippingDetails">
-            <button type="submit" name="username" value="@Model.UserName">Checkout</button>
-        </form>
-    </div>
-
     <table class="table">
         <thead>
             <tr>
@@ -30,7 +23,7 @@
                     Number of Lots
                 </th>
                 <th>
-                     Item Price Subtotals 
+                    Item Price Subtotals
                 </th>
                 <th></th>
             </tr>
@@ -46,9 +39,9 @@
                         $@Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
                     <td>
-                        <form method="post" asp-controller="Basket" asp-action="EditBasketItemQuantity">
+                        <form method="post" asp-controller="Basket" asp-action="EditBasketItemQuantity" class="checkout-form">
                             <input type="number" name="qty" value="@item.Quantity" />
-                            <button type="submit" name="basketItemId" value="@item.ID">Edit Quantity</button>
+                            <button type="submit" name="basketItemId" value="@item.ID" class="btn">Update</button>
                         </form>
                     </td>
                     <td>
@@ -56,11 +49,11 @@
                     </td>
                     <td>
                         <form method="get" asp-controller="Shop" asp-action="Details" asp-route-id="@item.Product.ID">
-                            <button type="submit">Details</button>
+                            <button type="submit" class="btn">Details</button>
                         </form>
 
                         <form method="post" asp-action="RemoveBasketItem">
-                            <button type="submit" name="basketItemId" value="@item.ID">Delete Item</button>
+                            <button type="submit" name="basketItemId" value="@item.ID" class="btn">Delete Item</button>
                         </form>
                     </td>
                 </tr>
@@ -72,11 +65,17 @@
                 <td></td>
                 <td></td>
                 <td>
-                     Subtotal: $@Model.Subtotal 
+                    <p><strong>Subtotal: $@Model.Subtotal</strong></p>
                 </td>
             </tr>
         </tfoot>
     </table>
+    <div>
+        <form method="post" asp-controller="Checkout" asp-action="ShippingDetails">
+            <button type="submit" name="username" value="@Model.UserName" class="btn">Checkout</button>
+        </form>
+    </div>
+
 }
 else
 {

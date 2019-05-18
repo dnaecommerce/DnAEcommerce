@@ -6,11 +6,9 @@
 @inject UserManager<User> UserMgr
 
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Account";
     Layout = "_Layout";
-}
 
-@{
     string nameOfCurrentUser = User.Identity.Name;
     var user = await UserMgr.FindByNameAsync(nameOfCurrentUser);
 }
@@ -20,31 +18,33 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Profile</title>
+    <title>Account</title>
 </head>
 <body>
 
     <h2>Welcome, @user.FirstName!</h2>
+    <br />
 
     <h4>User Details</h4>
     <hr />
+
     <div class="row">
         <div class="col-md-4">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="AppUser.Id" />
                 <div class="form-group">
-                    <label asp-for="AppUser.FirstName" class="control-label"></label>
+                    <label asp-for="AppUser.FirstName" class="control-label">First Name</label>
                     <input asp-for="AppUser.FirstName" class="form-control" />
                     <span asp-validation-for="AppUser.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="AppUser.LastName" class="control-label"></label>
+                    <label asp-for="AppUser.LastName" class="control-label">Last Name</label>
                     <input asp-for="AppUser.LastName" class="form-control" />
                     <span asp-validation-for="AppUser.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="AppUser.Email" class="control-label"></label>
+                    <label asp-for="AppUser.Email" class="control-label">Email Address</label>
                     <input asp-for="AppUser.Email" class="form-control" readonly />
                     <span asp-validation-for="AppUser.Email" class="text-danger"></span>
                 </div>
@@ -87,37 +87,40 @@
         </div>
     </div>
 
-    <div>
-        <a asp-controller="Home" asp-action="Index">Home</a>
-    </div>
-
-
-    <h3>Recent Orders</h3>
+    <h4>Recent Orders</h4>
     <hr />
-    @foreach (var order in Model.Orders)
+    @if (Model.Orders.Count > 1)
     {
-        <h4></h4>
-        <p>@order.OrderDateTime</p>
-        <p>Order total: $@order.FinalTotal</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var oi in order.OrderItems)
-                {
-                    <tr>
-                        <td>@oi.Product.Name</td>
-                        <td>@oi.Quantity</td>
-                        <td>@oi.Product.Price</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        @foreach (var order in Model.Orders)
+        {
+            <p><strong>@order.OrderDateTime</strong></p>
+            <p><strong>Order total:</strong> $@order.FinalTotal</p>
+            @foreach (var oi in order.OrderItems)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Item Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@oi.Product.Name</td>
+                            <td>@oi.Quantity</td>
+                            <td>$@oi.Product.Price</td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+            <hr />
+        }
+    }
+    else
+    {
+        <p>You haven't placed any orders yet!</p>
+        <a href="/Shop/Shop" class="btn">Shop</a>
     }
 </body>
 </html>
