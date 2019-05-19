@@ -23,15 +23,18 @@
     <title>Admin</title>
 </head>
 <body>
-    <a asp-page="/Admin/Index" class="btn">Products</a>
-    <h3>Recent Orders</h3>
+
+    <h3>Manage Products</h3>
     <hr />
+    <a asp-page="/Admin/Index" class="btn">Products</a>
+
+    <h3>Recent Orders</h3>
     @foreach (var order in lastTenOrders)
     {
+        <hr />
         <h4>Customer: @order.LastName, @order.FirstName</h4>
         <p>@order.OrderDateTime</p>
         <p>Order total: $@order.FinalTotal</p>
-        <hr />
     }
 
 </body>
