@@ -111,7 +111,7 @@ namespace DnAStore.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel { ReturnURL = Request.Headers["Referer"].ToString()});
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace DnAStore.Controllers
 						return LocalRedirect("~/Admin/Dashboard");
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    return Redirect(lvm.ReturnURL);
                 }
             }
 

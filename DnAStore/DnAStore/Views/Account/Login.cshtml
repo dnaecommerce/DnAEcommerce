@@ -7,7 +7,7 @@
 
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
-
+    <input type="hidden" asp-for="ReturnURL" value="@Model.ReturnURL" />
     <div class="input-block-container">
         <label asp-for="Email"></label>
         <input asp-for="Email" />
@@ -19,7 +19,7 @@
     </div>
 
     <div class="input-block-container">
-        <button type="submit">Login</button>
+        <button type="submit" class="btn">Login</button>
     </div>
 
 </form>

@@ -1,6 +1,7 @@
 ﻿body {
   background: url(../assets/images/sitebackground.jpg) no-repeat center center fixed;
-  background-size: cover; }
+  background-size: cover;
+  min-width: 960px; }
   body h1 {
     text-align: center;
     color: white; }
@@ -14,8 +15,37 @@ main {
   border-radius: 1.5vw;
   color: black; }
 
+.ctr-img {
+  text-align: center;
+  margin: 0 auto; }
+
 form {
   vertical-align: middle; }
+
+.checkout-form {
+  display: inline-flex;
+  align-items: baseline; }
+
+input {
+  margin: 0 1vw 1vw 1vw; }
+
+td {
+  min-width: 150px; }
+
+a, button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #EFEFEF !important;
+  text-decoration-style: none !important;
+  color: #222 !important;
+  padding: 0.5vw 2vw;
+  height: 5vh !important;
+  min-height: 35px;
+  width: 13vw !important;
+  border: none !important;
+  border-radius: 0.5vw !important;
+  margin: 0 1vw 1vw 1vw; }
 
 nav {
   display: flex;
@@ -25,41 +55,38 @@ nav {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #ccc !important;
-    text-decoration-style: none !important;
-    color: #222 !important;
-    padding: 0.5vw 2vw;
-    height: 5vh !important;
-    width: 13vw !important;
-    border-radius: 0.5vw !important;
-    margin: 1vw 2vw;
-    z-index: 2; }
+    z-index: 2;
+    min-width: 92px; }
   nav .basket-button {
     margin-right: 0;
     width: 10vw !important;
     border-radius: 0.5vw 0 0 0.5vw !important; }
   nav button {
-    justify-content: flex-end;
-    padding-right: 0.75vw !important;
-    width: 4vw !important;
-    margin-left: -1vw;
+    border-radius: 0 .5vw .5vw 0 !important;
+    width: 3vw !important;
+    margin-left: 0;
     background: #999 !important;
-    z-index: 1; }
+    z-index: 1;
+    min-width: 38px; }
 
 .input-block-container, .input-block-container-button {
   display: inline-grid;
-  grid-template-columns: 5vw 15vw auto 20vw 5vw;
+  grid-template-columns: 5vw 10vw auto 20vw 5vw;
   grid-template-rows: 5vh 5vh auto;
   height: 15vh;
   width: 40vw;
   padding: 1%;
-  align-items: center; }
+  align-items: center;
+  text-align: right; }
   .input-block-container label, .input-block-container-button label {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;
-    grid-row-end: 3; }
-  .input-block-container input, .input-block-container-button input {
+    grid-row-end: 3;
+    margin: 0; }
+  .input-block-container input, .input-block-container select, .input-block-container-button input, .input-block-container-button select {
+    margin: 1vw;
+    max-width: 275px;
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 2;

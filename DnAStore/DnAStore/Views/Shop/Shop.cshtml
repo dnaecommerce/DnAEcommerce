@@ -5,6 +5,9 @@
     Layout = "_Layout";
 }
 
+<h2>Shop</h2>
+<br />
+
 <table class="table">
     <thead>
         <tr>
@@ -34,13 +37,13 @@
                     $@Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @item.Description.Substring(0, 500)...
                 </td>
                 <td>
                     <img src="@Html.DisplayFor(modelItem => item.Image)" title="@Html.DisplayFor(modelItem => item.Name)" width="200" />
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ID">View Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn">View Details</a>
                 </td>
             </tr>
         }
