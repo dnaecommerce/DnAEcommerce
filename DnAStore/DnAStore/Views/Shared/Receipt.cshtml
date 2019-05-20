@@ -5,8 +5,9 @@
     Layout = "_Layout";
 }
 
+<h2>Thank you for your order!</h2>
+<br />
 <div>
-    <h3>Receipt for Order #@Model.TransactionNumber</h3>
     
     <table class="table">
         <thead>
@@ -21,7 +22,7 @@
                     Number of Lots
                 </th>
                 <th>
-                    Total Price
+                    Item Subtotal
                 </th>
             </tr>
         </thead>
@@ -47,8 +48,9 @@
     </table>
 
     <div>
-        <p><strong>Subtotal: $@Model.Subtotal</strong></p>
-        <p></strong>Grand Total: $@Model.FinalTotal</strong></p>
+        <p>Subtotal: $@Model.Subtotal</p>
+        <p><strong>Grand Total: $@Model.FinalTotal</strong></p>
+        <p>Order #@Model.TransactionNumber</p>
     </div>
 
 </div>

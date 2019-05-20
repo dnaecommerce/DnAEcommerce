@@ -4,10 +4,11 @@
     Layout = "_Layout";
 }
 
+<h2>Checkout</h2>
 <hr />
-<p>
-    <a href="/Shop/Shop">Back to Shop</a>
-</p>
+<a href="/Shop/Shop">Back to Shop</a>
+<br />
+<br />
 
 <div>
     <h4>Shipping Details</h4>
@@ -19,42 +20,42 @@
 
     <form method="post" asp-controller="Checkout" asp-action="Receipt">
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.FirstName"></label>
+            <label asp-for="ShippingDetails.FirstName">First Name</label>
             <input asp-for="ShippingDetails.FirstName" required />
             <span asp-validation-for="ShippingDetails.FirstName" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.LastName"></label>
+            <label asp-for="ShippingDetails.LastName">Last Name</label>
             <input asp-for="ShippingDetails.LastName" required />
             <span asp-validation-for="ShippingDetails.LastName" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.Address"></label>
+            <label asp-for="ShippingDetails.Address">Address</label>
             <input asp-for="ShippingDetails.Address" required />
             <span asp-validation-for="ShippingDetails.Address" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.City"></label>
+            <label asp-for="ShippingDetails.City">City</label>
             <input asp-for="ShippingDetails.City" required />
             <span asp-validation-for="ShippingDetails.City" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.State"></label>
+            <label asp-for="ShippingDetails.State">State</label>
             <input asp-for="ShippingDetails.State" required />
             <span asp-validation-for="ShippingDetails.State" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.PostalCode"></label>
+            <label asp-for="ShippingDetails.PostalCode">Postal Code</label>
             <input asp-for="ShippingDetails.PostalCode" required />
             <span asp-validation-for="ShippingDetails.PostalCode" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.PhoneNumber"></label>
+            <label asp-for="ShippingDetails.PhoneNumber">Phone Number</label>
             <input asp-for="ShippingDetails.PhoneNumber" required />
             <span asp-validation-for="ShippingDetails.PhoneNumber" class="text-danger"></span>
         </div>
         <div class="input-block-container">
-            <label asp-for="ShippingDetails.Card"></label>
+            <label asp-for="ShippingDetails.Card">Credit Card</label>
             <select asp-for="ShippingDetails.Card">
                 <option value="0">American Express ***********0002</option>
                 <option value="1">Discover ************0012</option>
@@ -84,7 +85,7 @@
                 Number of Lots
             </th>
             <th>
-                Item Price Subtotals
+                Item Subtotal
             </th>
         </tr>
     </thead>
@@ -113,7 +114,7 @@
             <td></td>
             <td></td>
             <td>
-                Subtotal: $@Model.Basket.Subtotal
+                <p><strong>Subtotal:</strong> $@Model.Basket.Subtotal</p>
             </td>
         </tr>
     </tfoot>

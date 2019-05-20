@@ -80,7 +80,7 @@ namespace DnAStore
 
 			app.Run(async (context) =>
 			{
-				await context.Response.WriteAsync("Hello World!");
+				await context.Response.WriteAsync("404 Page Not Found");
 			});
 		}
     }
