@@ -32,8 +32,29 @@
     @foreach (var order in lastTenOrders)
     {
         <hr />
-        <h4>Customer: @order.LastName, @order.FirstName</h4>
-        <p>@order.OrderDateTime</p>
+
+        <p><strong>@order.OrderDateTime</strong></p>
+        <p>Order #@order.TransactionNumber</p>
+        <p>Customer: @order.LastName, @order.FirstName</p>
+        @*<table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Item Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oi in order.OrderItems)
+                {
+                    <tr>
+                        <td>@oi.Product.Name</td>
+                        <td>@oi.Quantity</td>
+                        <td>$@oi.Product.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>*@
         <p>Order total: $@order.FinalTotal</p>
     }
 

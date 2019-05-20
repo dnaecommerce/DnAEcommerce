@@ -1,29 +1,41 @@
 ﻿@model IEnumerable<DnAStore.Models.BasketItem>
-@{ 
+@{
     Layout = null;
 }
 
-<div class="">
-    <h4>Your basket</h4>
-    <ul class="navbar-nav mr-auto">
-        @if (Model.ToList().Count < 1)
-        {
+<div>
+    <h4>Your Basket</h4>
+    @if (Model.ToList().Count < 1)
+    {
+        <ul class="navbar-nav mr-auto">
             <li>
                 <p>Your basket is currently empty</p>
+                <a href="/Shop/Shop" class="btn">Shop</a>
             </li>
-            <hr />
-        }
-        else
-        {
-            @foreach (var item in Model)
-            {
-                <li>
-                    <p>Name: @item.Product.Name</p>
-                    <img src="@item.Product.Image" height=50 />
-                    <p>Quantity: @item.Quantity</p>
-                </li>
-            }
-            <hr />
-        }
-    </ul>
+        </ul>
+        <hr />
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Item Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>$@item.Product.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+    }
 </div>

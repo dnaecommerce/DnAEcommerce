@@ -1,7 +1,5 @@
 # D&A Moon Plots: Lunar Real Estate at Bargain Prices
 
-[dnaecommerce.azurewebsites.net](https://dnaecommerce.azurewebsites.net/)
-
 ## Authors
 
 * Daniel Logerstedt: [github.com/daniellogerstedt](https://github.com/daniellogerstedt)
@@ -9,6 +7,11 @@
 
 ---------------------------------
 
+## We are deployed on Azure!
+
+[dnaecommerce.azurewebsites.net](https://dnaecommerce.azurewebsites.net/)
+
+---------------------------------
 ## Web Application
 
 ### Business Model and Products
