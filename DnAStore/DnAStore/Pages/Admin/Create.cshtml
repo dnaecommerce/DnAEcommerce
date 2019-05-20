@@ -7,8 +7,9 @@
 }
 
 <h4>Product</h4>
-<a asp-page="Index">Back to List</a>
 <hr />
+<a asp-page="Index">Back to Products</a>
+
 <div class="row">
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data">
@@ -30,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Product.Description" class="control-label"></label>
-                <textarea asp-for="Product.Description" class="form-control" ></textarea>
+                <textarea asp-for="Product.Description" class="form-control" style="margin: 0 1vw 1vw 1vw"></textarea>
                 <span asp-validation-for="Product.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
