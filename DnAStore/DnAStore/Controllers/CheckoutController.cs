@@ -145,7 +145,7 @@ namespace DnAStore.Controllers
 			// Email message body
 			StringBuilder sb = new StringBuilder();
 
-			sb.AppendLine("<h1>Thank you for your order!</h1>");
+			sb.AppendLine("<h2>Thank you for your order!</h2>");
 			sb.AppendLine("Here's what you ordered: <ul>");
 
 			var order = await _orderManager.GetOrderByIDEager(orderId);
@@ -156,10 +156,9 @@ namespace DnAStore.Controllers
 
 			sb.AppendLine("</ul>");
 			sb.AppendLine($"<strong>Order Total: ${order.FinalTotal}</strong>");
-			//sb.AppendLine($"Order date: {/*order.orderDateTime*/}");
+			sb.AppendLine($"Order date: {order.OrderDateTime}");
 			sb.ToString();
 
-			//string htmlMsgContent = "<p> Here's your receipt! </p>";
 			string htmlMsgContent = sb.ToString();
 
 			// Send email

@@ -1,11 +1,9 @@
-# Dan & And Ecommerce: Lunar Real Estate at Bargain Prices
-
-------------------------------
+# D&A Moon Plots: Lunar Real Estate at Bargain Prices
 
 ## Authors
 
-* Daniel Logerstedt ([github.com/daniellogerstedt](https://github.com/daniellogerstedt))
-* Andrew Curtis ([github.com/amjcurtis](https://github.com/amjcurtis))
+* Daniel Logerstedt: [github.com/daniellogerstedt](https://github.com/daniellogerstedt)
+* Andrew Curtis: [github.com/amjcurtis](https://github.com/amjcurtis)
 
 ---------------------------------
 
@@ -18,10 +16,10 @@
 
 ### Business Model and Products
 
-Dan & And Ecommerce is a collaborative project in which we built a mock online storefront
+D&A Moon Plots is a collaborative project in which we built a mock online storefront
 that offers the all of the primary features and services of an ecommerce shop.
 It caters especially to those in the lunar real estate market. 
-Our fictitious ecomm business specializes in finding the most desirable craters
+Our fictitious ecommerce business specializes in finding the most desirable craters
 and other features of Earth's nearest celestial neighbor and offering them at
 exceptionally low prices. It offers a smooth, intuitive online shopping experience
 at each stage from registration and login to browsing products and checking out. 
@@ -35,16 +33,15 @@ and the MVC framework.
 
 Upon registration we capture the following claims: 
 
-* A custom claim for the user's full name (composed of their first
-and last name)
 * User's email address
-* Custom claim for whether or not the user is certified for space travel.
+* A custom claim for the user's full name (composed of their first and last name)
+* A custom claim for whether or not the user is certified for space travel.
 
 These claims are captured from the account registration page and processed in the account
 controller so they can be used later to gate access to certain pages on the site and to
 store the user's selected products and orders. 
 
-We use the custom claims-based policy "SpaceTravelCertified" (a `bool`) to control access
+We use the custom claims-based policy "SpaceTravelCertified" to control access
 to a Space Travelers page that allows users who meet the policy requirement to see the number
 of other space travel-certified users who have shopped on the site. 
 
@@ -55,12 +52,14 @@ of other space travel-certified users who have shopped on the site.
 - C#
 - ASP.NET Core MVC
 - Entity Framework
+- Razor Pages
 - HTML
 - CSS
 - Bootstrap
 - Sass/SCSS
-- xUnit
-- SendGrid Email Service
+- xUnit testing framework
+- SendGrid email service
+- Authorize.Net payment API
 - SQL Server
 - Azure
 
@@ -156,6 +155,10 @@ property for tracking the final total price of the order.
 
 ## Change Log
 
-0.1.0: *Published site on master branch* - 2019-04-30
-0.2.0: *Site updated with order checkout functionality, SendGrid email service integration, and styling across site* - 2019-05-08
-0.3.0: *Added integration with Authorize.Net for payment processing and Azure Blob Storage for serving product images; built out admin and user profile pages with select CRUD operations* - 2019-05-16
+0.1.0: *Published site on master branch.* (2019-04-30)
+
+0.2.0: *Site updated with order checkout functionality, SendGrid email service integration, and styling across site.* (2019-05-08)
+
+0.3.0: *Added integration with Authorize.Net for payment processing and Azure Blob Storage for serving product images. Built out admin and user profile pages with select CRUD operations.* (2019-05-16)
+
+0.4.0: *UI improvements: styling, markup, image display, etc. Vulnerability report.* (2019-05-18)

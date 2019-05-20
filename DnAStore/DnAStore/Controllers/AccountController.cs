@@ -88,7 +88,7 @@ namespace DnAStore.Controllers
 					// Send welcome email only if not in dev environment (to avoid excessive emailing)
 					if (!_environment.IsDevelopment())
 					{
-						await _emailSender.SendEmailAsync(rvm.Email, "Thanks For Registering", "<p>Welcome to the site.</p>");
+						await _emailSender.SendEmailAsync(rvm.Email, "Welcome to D&A Moon Plots!", "<p>Welcome! Thanks for creating an account.</p>");
 					}
 
                     if (await _userManager.IsInRoleAsync(user, Roles.Admin))

@@ -25,7 +25,7 @@
     <h2>Welcome, @user.FirstName!</h2>
     <br />
 
-    <h4>User Details</h4>
+    <h4>Account Details</h4>
     <hr />
 
     <div class="row">
@@ -87,33 +87,33 @@
         </div>
     </div>
 
-    <h4>Recent Orders</h4>
+    <h4>Your Recent Orders</h4>
     <hr />
     @if (Model.Orders.Count > 1)
     {
         @foreach (var order in Model.Orders)
         {
             <p><strong>@order.OrderDateTime</strong></p>
-            <p><strong>Order total:</strong> $@order.FinalTotal</p>
-            @foreach (var oi in order.OrderItems)
-            {
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Item Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Item Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var oi in order.OrderItems)
+                    {
                         <tr>
                             <td>@oi.Product.Name</td>
                             <td>@oi.Quantity</td>
                             <td>$@oi.Product.Price</td>
                         </tr>
-                    </tbody>
-                </table>
-            }
+                    }
+                </tbody>
+            </table>
+            <p><strong>Order total: $@order.FinalTotal</strong></p>
             <hr />
         }
     }
