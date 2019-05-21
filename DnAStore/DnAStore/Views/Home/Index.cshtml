@@ -13,15 +13,15 @@
 <body>
     @if (SignInManager.IsSignedIn(User))
     {
-        <h5>Hi, @User.Claims.First(c => c.Type == "FullName").Value!</h5>
+        <h4>Welcome back, @User.Claims.First(c => c.Type == "FullName").Value!</h4>
     }
     else
     {
-        <h5>Welcome, stranger!</h5>
+        <h4>Welcome to D&A Moon Plots, your new favorite resource for great lunar living!</h4>
     }
+
+    
     <hr />
-    <h4>Welcome to D&A Moon Plots, your new favorite resource for great lunar living!</h4>
-    <br />
     <p>At D&A Moon Plots we pride ourselves on offering the finest parcels of lunar turf at the best prices around.</p> 
     <p>Whether you're looking for a primary residence or simply a place to spend your weekends when you want to get out of town, we can provide great options for every budget. All our properties are nestled in one of several desirable craters conveniently located on the earth-facing side of the moon. Each location boasts low average rainfall and a high degree of privacy.</p>
     <p>Whatever your preference, we're sure you'll find what you're looking for at D&A Moon Plots!</p>
