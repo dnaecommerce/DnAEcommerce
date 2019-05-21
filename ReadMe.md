@@ -1,6 +1,6 @@
 # D&A Moon Plots: Lunar Real Estate at Bargain Prices
 
-## Authors
+## Developers
 
 * Daniel Logerstedt: [github.com/daniellogerstedt](https://github.com/daniellogerstedt)
 * Andrew Curtis: [github.com/amjcurtis](https://github.com/amjcurtis)
