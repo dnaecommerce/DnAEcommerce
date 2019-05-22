@@ -158,3 +158,5 @@ property for tracking the final total price of the order.
 0.3.0: *Added integration with Authorize.Net for payment processing and Azure Blob Storage for serving product images. Built out admin and user profile pages with select CRUD operations.* (2019-05-16)
 
 0.4.0: *UI improvements: styling, markup, image display, etc. Vulnerability report.* (2019-05-18)
+
+1.0.0: *Publish MVP* (2019-05-20)
