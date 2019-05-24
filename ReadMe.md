@@ -1,6 +1,6 @@
 # D&A Moon Plots: Lunar Real Estate at Bargain Prices
 
-## Authors
+## Developers
 
 * Daniel Logerstedt: [github.com/daniellogerstedt](https://github.com/daniellogerstedt)
 * Andrew Curtis: [github.com/amjcurtis](https://github.com/amjcurtis)
@@ -35,15 +35,10 @@ Upon registration we capture the following claims:
 
 * User's email address
 * A custom claim for the user's full name (composed of their first and last name)
-* A custom claim for whether or not the user is certified for space travel.
 
 These claims are captured from the account registration page and processed in the account
 controller so they can be used later to gate access to certain pages on the site and to
 store the user's selected products and orders. 
-
-We use the custom claims-based policy "SpaceTravelCertified" to control access
-to a Space Travelers page that allows users who meet the policy requirement to see the number
-of other space travel-certified users who have shopped on the site. 
 
 ---------------------------------
 
@@ -51,6 +46,7 @@ of other space travel-certified users who have shopped on the site.
 
 - C#
 - ASP.NET Core MVC
+- ASP.NET Identity
 - Entity Framework
 - Razor Pages
 - HTML
@@ -162,3 +158,5 @@ property for tracking the final total price of the order.
 0.3.0: *Added integration with Authorize.Net for payment processing and Azure Blob Storage for serving product images. Built out admin and user profile pages with select CRUD operations.* (2019-05-16)
 
 0.4.0: *UI improvements: styling, markup, image display, etc. Vulnerability report.* (2019-05-18)
+
+1.0.0: *Publish MVP* (2019-05-20)
