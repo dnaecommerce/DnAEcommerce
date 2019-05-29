@@ -159,4 +159,4 @@ property for tracking the final total price of the order.
 
 0.4.0: *UI improvements: styling, markup, image display, etc. Vulnerability report.* (2019-05-18)
 
-1.0.0: *Publish MVP* (2019-05-20)
+1.0.0: *v1.0 release* (2019-05-20)
