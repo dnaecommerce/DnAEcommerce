@@ -6,12 +6,6 @@
 * Andrew Curtis: [github.com/amjcurtis](https://github.com/amjcurtis)
 
 ---------------------------------
-
-## We are deployed on Azure!
-
-[dnaecommerce.azurewebsites.net](https://dnaecommerce.azurewebsites.net/)
-
----------------------------------
 ## Web Application
 
 ### Business Model and Products
@@ -160,3 +154,4 @@ property for tracking the final total price of the order.
 0.4.0: *UI improvements: styling, markup, image display, etc. Vulnerability report.* (2019-05-18)
 
 1.0.0: *v1.0 release* (2019-05-20)
+* Site undeployed 2019-10. Code is still deployment-ready though.
